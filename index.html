@@ -1,0 +1,29 @@
+<!doctype html>
+<html ng-app="app"  lang="pt-BR" >
+   <head>
+      <meta charset="utf-8">
+      <title>Flavio Dev</title>
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+   </head>
+ 
+   <body>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+
+      <script src="app/app.js"></script>
+      <script src="app/controllers/controllers.js"></script>
+
+      <section>
+	      <article>
+		      <ul class="nav nav-tabs">
+		         <li ng-class="{active: activetab == '/'}"><a href="#/home">Home</a></li>
+		         <li ng-class="{active: activetab == '/profile'}"><a href="#/profile">Profile</a></li>
+		         <li ng-class="{active: activetab == '/instituteOfEducation'}"><a href="#/instituteOfEducation">Institute of Education</a></li>
+		      </ul>
+		      <div ng-view></div>
+	      </article>
+      </section>
+   
+   </body>
+</html>
+

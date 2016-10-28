@@ -1,0 +1,45 @@
+ <div class="container" ng-controller="serviceProfile">
+	<div class="col-md-12">
+       <table class="table">
+	      <thead>
+             <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Document</th>
+             </tr>
+          </thead>
+          <tbody>
+             <tr ng-repeat="profile in profiles">
+                <td>{{profile.id}}</td>
+                <td>{{profile.name}}</td>
+                <td>{{profile.dateOfBirth | date}}</td>
+                <td>{{profile.document}}</td>
+                <td><button class="btn" ng-click="loadProfile(profile)">Editar</button></td>
+                <td><button class="btn" ng-click="deleteProfile(profile.id)">Excluir</button></td>
+             </tr>          
+          </tbody>
+       </table>
+    </div>
+
+	<form name="profileForm">
+		<div class="form-group">
+        	<label>Id</label>
+        	<input type="number" name="id" max="100" class="form-control" ng-model="data.profile.id" disabled="disabled">
+        	<label>Name</label>
+        	<input type="text" name="name" maxlength="50" class="form-control" ng-model="data.profile.name" >
+        	<label>Date of Birth</label>
+        	<input type="date" name="dateOfBirth" maxlength="50" class="form-control" ng-model="data.profile.dateOfBirth" >
+        	<label>Document</label>
+        	<input type="text" name="document" maxlength="50" class="form-control" ng-model="data.profile.document">
+	    </div>
+		
+		<button id="btUpdate" type="button" ng-click="updateProfile(data.profile.id)" class="btn btn-primary">Update</button>
+		<button id="btCreate" type="button" ng-click="createProfile()" class="btn btn-primary">Create</button>
+		<button id="btCreate" type="button" ng-click="cancel()" class="btn btn-primary">Cancel</button>
+	</form>
+</div>
+
+
+
+
