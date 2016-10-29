@@ -1,6 +1,6 @@
 # curriculum-view-aj
 
-This is the complement of the idea of the project curriculum-control-php. The implementation a simple application for test to implementation of the architecture (ttm-core-php).
+This is the complement of the idea of the project curriculum-control-php. It's view layer (front-end) of curriculum application.
 
 The idea is to create a simple curriculum, showing the personal informations, academics qualifications, professional experiences and especifics knowledges.
 
