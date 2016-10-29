@@ -1,30 +1,25 @@
+/**
+ * @autor flaviodev - Flávio de Souza - fdsdev@gmail.com
+ * 
+ * Modules 
+ */
+
+/** routeProvider - page navigation */
 var app = angular.module('app',['ngRoute']);
- 
 app.config(function($routeProvider, $locationProvider)
 {
-   // remove o # da url
-  // $locationProvider.html5Mode(true);
- 
    $routeProvider
- 
-   // para a rota '/', carregaremos o template home.html e o controller 'HomeCtrl'
-   .when('/', {
-      templateUrl : 'app/views/home.html',
-      controller     : 'NavegacaoCtrl',
-   })
+      .when('/', { /** for route '/', load the template home.html */
+         templateUrl:'app/views/home.html',
+         controller:'NavigatorCtrl'})
+      
+      .when('/profile', {
+	     templateUrl:'app/views/profile.html',
+	     controller:'NavigatorCtrl'})
+      
+	  .when('/instituteOfEducation', {
+	     templateUrl:'app/views/instituteOfEducation.html',
+	     controller:'NavigatorCtrl'})
 
-   .when('/profile', {
-	   templateUrl : 'app/views/profile.html',
-	   controller  : 'NavegacaoCtrl',
-   })
-
-   .when('/instituteOfEducation', {
-	   templateUrl : 'app/views/instituteOfEducation.html',
-	   controller  : 'NavegacaoCtrl',
-   })
-   
-   
-   
-   // caso não seja nenhum desses, redirecione para a rota '/'
-   .otherwise ({ redirectTo: '/' });
+	  .otherwise ({redirectTo: '/'}); /** if dont find a route, redirect to route '/'  */
 });
