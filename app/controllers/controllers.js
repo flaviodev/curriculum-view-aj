@@ -95,9 +95,10 @@ app.controller('CrudCtrl', function ($scope, $http) {
       request.success(function (data) {
     	 /** pushing the created register to crud table */
     	  $scope[ttmCrudTable].push(data.reply)
-         /** reseting the form */
-         $scope[ttmCrudGroupRegister][ttmCrudRegister] = {};
       });
+      
+  	  /** reseting crud form */
+ 	  $scope[ttmCrudGroupRegister][ttmCrudRegister] = {};
       
       /** updating state of mode view on form */
       $scope.view_mode = true;
@@ -144,6 +145,11 @@ app.controller('CrudCtrl', function ($scope, $http) {
     * deleteObject: invoke the service that delete the object (mapped entity)
     */   
    $scope.deleteObject = function (idObject) {
+	   /** Validation id object */
+	   if(idObject==0) {
+		   alert("Erro: Id of object is wrong (0)");
+		   return;
+	   }
 	   /** Validation if the delete request isnt about a object on edition */
 	   if($scope[ttmCrudGroupRegister][ttmCrudRegister].id==idObject) {
 		   alert("Register is on edition! Can't be deleted.")
@@ -202,6 +208,9 @@ app.controller('CrudCtrl', function ($scope, $http) {
     * newObject: change view mode 
     */   
    $scope.newObject = function () {
+  	  /** reseting crud form */
+  	  $scope[ttmCrudGroupRegister][ttmCrudRegister] = {};
+	   
 	  /** updating state of mode view on form */
 	  $scope.view_mode = false;
 	  $scope.create_mode = true;

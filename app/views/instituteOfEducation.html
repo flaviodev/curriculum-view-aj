@@ -1,68 +1,77 @@
 <!-- @autor flaviodev - Flávio de Souza - fdsdev@gmail.com 
      window for register institutes of education using the controller: CrudCtrl -->
 
- <div class="container" ng-controller="CrudCtrl">
+<!-- this divs works how variables to set on controller 
+     the path of project where the services will be invoked,
+     the crud services to obtain objects to table
+     and de html componets names for manipulation. Attention:       
+     dont change the id of the div and custom attribuites names.
+ -->
+<div id="Crud" class="container" ng-controller="CrudCtrl"
+     data-ttm-context="/curriculum-control-php"
+     data-ttm-getobjects="ServiceRegister/getInstitutesOfEducation"
+     data-ttm-getobject="ServiceRegister/getInstituteOfEducation"
+     data-ttm-createobject="ServiceRegister/createInstituteOfEducation"
+     data-ttm-updateobject="ServiceRegister/updateInstituteOfEducation"
+     data-ttm-deleteobject="ServiceRegister/deleteInstituteOfEducation"
+     data-ttm-crudgroupregister="form"
+     data-ttm-crudregister="institute"
+     data-ttm-crudtable="institutesTable">
 
-    <!-- this divs works how variables to set on controller 
-         the path of project where the services will be invoked,
-         and the service to obtain the list of objects to table 
-         (finding a better solution)   
-     -->
-	<div id="pathBase" hidden="true">/curriculum-control-php</div>
-	<div id="serviceGetObjects" hidden="true">ServiceRegister/getInstitutesOfEducation</div>
-
-    <!-- div of registers table  -->
+    <!-- div of registers table (ttm-crudtable)  -->
 	<div class="col-md-12">
        <table class="table">
 	      <thead>
              <tr>
                 <th></th>
-                <th>Institute</th>
+                <th>Name</th>
                 <th></th>
                 <th></th>
              </tr>
           </thead>
           <tbody>
-             <!-- repeation for fill the table with the returned data of the 
-             service (div:serviceGetObjects). Attention: how the windows uses a common
-             the attribute 'registers' cant be changed! Because de controller references it -->
-             <tr ng-repeat="institute in registers">
-                <td>{{institute.id}}</td>
-                <td>{{institute.name}}</td>
-
+             <!-- Repeation for fill the table with the returned data of the service (ttm-getobjects) 
+                  Attention: the name of data collection on repeat must be setted on "Crud div" in
+                  custom attribute "data-ttm-crudtable"  
+             -->
+             <tr ng-repeat="instituteItem in institutesTable">
+                <td>{{instituteItem.id}}</td>
+                <td>{{instituteItem.name}}</td>
+                             
                 <!-- action to load the data on form -->
-                <td><button class="btn" ng-click="loadObject(institute)">Edit</button></td>
+                <td><button class="btn btn-primary" ng-click="loadObject(instituteItem)">Edit</button></td>
                 
                 <!-- action to delete the register on data base -->
-                <td><button class="btn" ng-click="deleteObject(institute.id,'ServiceRegister/deleteInstituteOfEducation')">Delete</button></td>
+                <td><button class="btn btn-primary" ng-click="deleteObject(instituteItem.id)">Delete</button></td>
              </tr>          
           </tbody>
        </table>
     </div>
 
-    <!-- data register form. Attention: the prefix (form.register) name of 'ng-model' on input field
-         cant be changed! Because the controller references it  -->
-	<form name="instituteForm">
-		<div class="form-group">
-        	<label>Id</label>
-        	<input type="number" name="id" max="100" class="form-control" ng-model="form.register.id" disabled="disabled">
+    <!-- data register form. Attention: use the pattern to naming a attribute for 'ng-model', 
+         using two grouper for data, a name of group register and a name of register. 
+         ex: formStudent.student.name (groupResgister.register.attribute)
+         these name must be setted on 'crud div'  on custom attributes      
+         "data-ttm-group-crudregister" and "data-ttm-crudregister"
+         -->
+	<form>
+		<div class="form-group"  ng-show="edition_mode">
+		   	<label>Id</label>
+        	<input type="number" class="form-control" ng-model="form.institute.id" disabled="disabled">
         	<label>Name</label>
-        	<input type="text" name="name" maxlength="50" class="form-control" ng-model="form.register.name" >
+        	<input type="text" maxlength="50" class="form-control" ng-model="form.institute.name" >
 	    </div>
 
 		<!-- action to show the button for create a new object -->
-		<button id="btUpdate" type="button" ng-click="newObject()" class="btn btn-primary" ng-show="view_mode">New</button>
+		<button class="btn btn-primary" ng-show="view_mode" ng-click="newObject()">New</button>
 		
 		<!-- action to update the register on data base -->
-		<button id="btUpdate" type="button" ng-click="updateObject(form.register,'ServiceRegister/updateInstituteOfEducation')" class="btn btn-primary" ng-show="update_mode">Update</button>
+		<button class="btn btn-primary" ng-show="update_mode" ng-click="updateObject(form.institute)">Update</button>
 
 		<!-- action to create a new register on data base -->
-		<button id="btCreate" type="button" ng-click="createObject(form.register,'ServiceRegister/createInstituteOfEducation')" class="btn btn-primary" ng-show="create_mode">Create</button>
+		<button class="btn btn-primary" ng-show="create_mode" ng-click="createObject(form.institute)">Save</button>
 
 		<!-- action to reset the form -->
-		<button id="btCreate" type="button" ng-click="cancelEdition()" class="btn btn-primary" ng-show="edition_mode">Cancel</button>	</form>
+		<button class="btn btn-primary" ng-show="edition_mode" ng-click="cancelEdition()">Cancel</button>
+	</form>
 </div>
-
-
-
-
