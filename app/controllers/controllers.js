@@ -152,7 +152,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
     */   
    $scope.deleteObject = function (idObject,service) {
 	   if($scope.form.register.id==idObject) {
-		   alert("This register is on edition! Can1t be deleted")
+		   alert("This register is on edition! Can't be deleted.")
 		   return;
 	   }
 	   

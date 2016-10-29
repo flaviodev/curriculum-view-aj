@@ -49,15 +49,18 @@
         	<label>Name</label>
         	<input type="text" name="name" maxlength="50" class="form-control" ng-model="form.register.name" >
 	    </div>
+
+		<!-- action to show the button for create a new object -->
+		<button id="btUpdate" type="button" ng-click="newObject()" class="btn btn-primary" ng-show="view_mode">New</button>
 		
 		<!-- action to update the register on data base -->
-		<button id="btUpdate" type="button" ng-click="updateObject(form.register,'ServiceRegister/updateInstituteOfEducation')" class="btn btn-primary">Update</button>
+		<button id="btUpdate" type="button" ng-click="updateObject(form.register,'ServiceRegister/updateInstituteOfEducation')" class="btn btn-primary" ng-show="update_mode">Update</button>
 
 		<!-- action to create a new register on data base -->
-		<button id="btCreate" type="button" ng-click="createObject(form.register,'ServiceRegister/createInstituteOfEducation')" class="btn btn-primary">Create</button>
+		<button id="btCreate" type="button" ng-click="createObject(form.register,'ServiceRegister/createInstituteOfEducation')" class="btn btn-primary" ng-show="create_mode">Create</button>
 
 		<!-- action to reset the form -->
-		<button id="btCreate" type="button" ng-click="cancelEdition()" class="btn btn-primary">Cancel</button>	</form>
+		<button id="btCreate" type="button" ng-click="cancelEdition()" class="btn btn-primary" ng-show="edition_mode">Cancel</button>	</form>
 </div>
 
 
