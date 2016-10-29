@@ -1,35 +1,63 @@
- <div class="container" ng-controller="serviceInstitute">
+<!-- @autor flaviodev - Flávio de Souza - fdsdev@gmail.com 
+     window for register institutes of education using the controller: CrudCtrl -->
+
+ <div class="container" ng-controller="CrudCtrl">
+
+    <!-- this divs works how variables to set on controller 
+         the path of project where the services will be invoked,
+         and the service to obtain the list of objects to table 
+         (finding a better solution)   
+     -->
+	<div id="pathBase" hidden="true">/curriculum-control-php</div>
+	<div id="serviceGetObjects" hidden="true">ServiceRegister/getInstitutesOfEducation</div>
+
+    <!-- div of registers table  -->
 	<div class="col-md-12">
        <table class="table">
 	      <thead>
              <tr>
-                <th>#</th>
-                <th>Name</th>
+                <th></th>
+                <th>Institute</th>
+                <th></th>
+                <th></th>
              </tr>
           </thead>
           <tbody>
-             <tr ng-repeat="institute in institutes">
+             <!-- repeation for fill the table with the returned data of the 
+             service (div:serviceGetObjects). Attention: how the windows uses a common
+             the attribute 'registers' cant be changed! Because de controller references it -->
+             <tr ng-repeat="institute in registers">
                 <td>{{institute.id}}</td>
                 <td>{{institute.name}}</td>
-                <td><button class="btn" ng-click="loadInstitute(institute)">Editar</button></td>
-                <td><button class="btn" ng-click="deleteInstitute(institute.id)">Excluir</button></td>
+
+                <!-- action to load the data on form -->
+                <td><button class="btn" ng-click="loadObject(institute)">Edit</button></td>
+                
+                <!-- action to delete the register on data base -->
+                <td><button class="btn" ng-click="deleteObject(institute.id,'ServiceRegister/deleteInstituteOfEducation')">Delete</button></td>
              </tr>          
           </tbody>
        </table>
     </div>
 
+    <!-- data register form. Attention: the prefix (form.register) name of 'ng-model' on input field
+         cant be changed! Because the controller references it  -->
 	<form name="instituteForm">
 		<div class="form-group">
         	<label>Id</label>
-        	<input type="number" name="id" max="100" class="form-control" ng-model="data.institute.id" disabled="disabled">
+        	<input type="number" name="id" max="100" class="form-control" ng-model="form.register.id" disabled="disabled">
         	<label>Name</label>
-        	<input type="text" name="name" maxlength="50" class="form-control" ng-model="data.institute.name" >
+        	<input type="text" name="name" maxlength="50" class="form-control" ng-model="form.register.name" >
 	    </div>
 		
-		<button id="btUpdate" type="button" ng-click="updateInstitute(data.institute.id)" class="btn btn-primary">Update</button>
-		<button id="btCreate" type="button" ng-click="createInstitute()" class="btn btn-primary">Create</button>
-		<button id="btCreate" type="button" ng-click="cancel()" class="btn btn-primary">Cancel</button>
-	</form>
+		<!-- action to update the register on data base -->
+		<button id="btUpdate" type="button" ng-click="updateObject(form.register,'ServiceRegister/updateInstituteOfEducation')" class="btn btn-primary">Update</button>
+
+		<!-- action to create a new register on data base -->
+		<button id="btCreate" type="button" ng-click="createObject(form.register,'ServiceRegister/createInstituteOfEducation')" class="btn btn-primary">Create</button>
+
+		<!-- action to reset the form -->
+		<button id="btCreate" type="button" ng-click="cancelEdition()" class="btn btn-primary">Cancel</button>	</form>
 </div>
 
 
