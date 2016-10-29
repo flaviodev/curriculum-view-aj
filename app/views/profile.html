@@ -1,18 +1,26 @@
 <!-- @autor flaviodev - Flávio de Souza - fdsdev@gmail.com 
      window for register profiles using the controller: CrudCtrl -->
 
-<!-- TODO create a component for reuse the window -->     
-<div class="container" ng-controller="CrudCtrl">
+<!-- @todo create a web component for reuse the window -->
 
-    <!-- this divs works how variables to set on controller 
-         the path of project where the services will be invoked,
-         and the service to obtain the list of objects to table 
-         (finding a better solution)   
-     -->
-	<div id="pathBase" hidden="true">/curriculum-control-php</div>
-	<div id="serviceGetObjects" hidden="true">ServiceRegister/getProfiles</div>
+<!-- this divs works how variables to set on controller 
+     the path of project where the services will be invoked,
+     the crud services to obtain objects to table
+     and de html componets names for manipulation. Attention:       
+     dont change the id of the div and custom attribuites names.
+ -->
+<div id="Crud" class="container" ng-controller="CrudCtrl"
+     data-ttm-context="/curriculum-control-php"
+     data-ttm-getobjects="ServiceRegister/getProfiles"
+     data-ttm-getobject="ServiceRegister/getProfile"
+     data-ttm-createobject="ServiceRegister/createProfile"
+     data-ttm-updateobject="ServiceRegister/updateProfile"
+     data-ttm-deleteobject="ServiceRegister/deleteProfile"
+     data-ttm-crudgroupregister="form"
+     data-ttm-crudregister="profile"
+     data-ttm-crudtable="profilesTable">
 
-    <!-- div of registers table  -->
+    <!-- div of registers table (ttm-crudtable)  -->
 	<div class="col-md-12">
        <table class="table">
 	      <thead>
@@ -26,54 +34,55 @@
              </tr>
           </thead>
           <tbody>
-             <!-- repeation for fill the table with the returned data of the 
-             service (div:serviceGetObjects). Attention: how the windows uses a common
-             the attribute 'registers' cant be changed! Because the controller references it -->
-             <tr ng-repeat="profile in registers">
-                <td>{{profile.id}}</td>
-                <td>{{profile.name}}</td>
-                <td>{{profile.dateOfBirth | date}}</td>
-                <td>{{profile.document}}</td>
+             <!-- Repeation for fill the table with the returned data of the service (ttm-getobjects) 
+                  Attention: the name of data collection on repeat must be setted on "Crud div" in
+                  custom attribute "data-ttm-crudtable"  
+             -->
+             <tr ng-repeat="profileItem in profilesTable">
+                <td>{{profileItem.id}}</td>
+                <td>{{profileItem.name}}</td>
+                <td>{{profileItem.dateOfBirth | date}}</td>
+                <td>{{profileItem.document}}</td>
                              
                 <!-- action to load the data on form -->
-                <td><button class="btn" ng-click="loadObject(profile)">Edit</button></td>
+                <td><button class="btn btn-primary" ng-click="loadObject(profileItem)">Edit</button></td>
                 
                 <!-- action to delete the register on data base -->
-                <td><button class="btn" ng-click="deleteObject(profile.id,'ServiceRegister/deleteProfile')">Delete</button></td>
+                <td><button class="btn btn-primary" ng-click="deleteObject(profileItem.id)">Delete</button></td>
              </tr>          
           </tbody>
        </table>
     </div>
 
-    <!-- data register form. Attention: the prefix (form.register) name of 'ng-model' on input field
-         cant be changed! Because the controller references it  -->
-	<form name="profileForm">
+    <!-- data register form. Attention: use the pattern to naming a attribute for 'ng-model', 
+         using two grouper for data, a name of group register and a name of register. 
+         ex: formStudent.student.name (groupResgister.register.attribute)
+         these name must be setted on 'crud div'  on custom attributes      
+         "data-ttm-group-crudregister" and "data-ttm-crudregister"
+         -->
+	<form>
 		<!-- TODO configure the disable of fields -->
-		<div class="form-group">
+		<div class="form-group"  ng-show="edition_mode">
 		   	<label>Id</label>
-        	<input type="number" name="id" class="form-control" ng-model="form.register.id" disabled="disabled">
+        	<input type="number" name="id" class="form-control" ng-model="form.profile.id" disabled="disabled">
         	<label>Name</label>
-        	<input type="text" name="name" maxlength="50" class="form-control" ng-model="form.register.name" >
+        	<input type="text" name="name" maxlength="50" class="form-control" ng-model="form.profile.name" >
         	<label>Date of Birth</label>
-        	<input type="date" name="dateOfBirth" maxlength="50" class="form-control" ng-model="form.register.dateOfBirth" >
+        	<input type="date" name="dateOfBirth" maxlength="50" class="form-control" ng-model="form.profile.dateOfBirth" >
         	<label>Document</label>
-        	<input type="text" name="document" maxlength="50" class="form-control" ng-model="form.register.document" >
+        	<input type="text" name="document" maxlength="50" class="form-control" ng-model="form.profile.document" >
 	    </div>
 
 		<!-- action to show the button for create a new object -->
-		<button id="btUpdate" type="button" ng-click="newObject()" class="btn btn-primary" ng-show="view_mode">New</button>
+		<button class="btn btn-primary" ng-show="view_mode" ng-click="newObject()">New</button>
 		
 		<!-- action to update the register on data base -->
-		<button id="btUpdate" type="button" ng-click="updateObject(form.register,'ServiceRegister/updateProfile')" class="btn btn-primary" ng-show="update_mode">Update</button>
+		<button class="btn btn-primary" ng-show="update_mode" ng-click="updateObject(form.profile)">Update</button>
 
 		<!-- action to create a new register on data base -->
-		<button id="btCreate" type="button" ng-click="createObject(form.register,'ServiceRegister/createProfile')" class="btn btn-primary"  ng-show="create_mode">Save</button>
+		<button class="btn btn-primary" ng-show="create_mode" ng-click="createObject(form.profile)">Save</button>
 
 		<!-- action to reset the form -->
-		<button id="btCreate" type="button" ng-click="cancelEdition()" class="btn btn-primary" ng-show="edition_mode" ng-model="editon">Cancel</button>
+		<button class="btn btn-primary" ng-show="edition_mode" ng-click="cancelEdition()">Cancel</button>
 	</form>
 </div>
-
-
-
-
