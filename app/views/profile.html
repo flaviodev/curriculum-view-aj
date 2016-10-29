@@ -1,6 +1,7 @@
 <!-- @autor flaviodev - Flávio de Souza - fdsdev@gmail.com 
      window for register profiles using the controller: CrudCtrl -->
-     
+
+<!-- TODO create a component for reuse the window -->     
 <div class="container" ng-controller="CrudCtrl">
 
     <!-- this divs works how variables to set on controller 
@@ -47,6 +48,7 @@
     <!-- data register form. Attention: the prefix (form.register) name of 'ng-model' on input field
          cant be changed! Because the controller references it  -->
 	<form name="profileForm">
+		<!-- TODO configure the disable of fields -->
 		<div class="form-group">
 		   	<label>Id</label>
         	<input type="number" name="id" class="form-control" ng-model="form.register.id" disabled="disabled">
