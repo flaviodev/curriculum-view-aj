@@ -48,8 +48,8 @@ app.controller('CrudCtrl', function ($scope, $http) {
    $http({method: 'POST', url: ttmContext+"/"+ttmGetObjects, /** service resquest */ 
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }})
       .success(function(data) {
-    	 /** ttmCrudTable: collection that contais the registers of table, data.reply: return of service */ 
-    	  $scope[ttmCrudTable] = data.reply; 
+    	 /** ttmCrudTable: collection that contais the registers of table, data: return of service */ 
+    	  $scope[ttmCrudTable] = data; 
          //alert(data.toSource());
       })
       .error(function(data, status, headers, config) {
@@ -73,7 +73,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
       
       request.success(function (data) {
     	 /** setting the returned register to crud form */
-    	  $scope[ttmCrudGroupRegister][ttmCrudRegister] = data.reply;
+    	  $scope[ttmCrudGroupRegister][ttmCrudRegister] = data;
       });
    }
 
@@ -94,7 +94,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
       
       request.success(function (data) {
     	 /** pushing the created register to crud table */
-    	  $scope[ttmCrudTable].push(data.reply)
+    	  $scope[ttmCrudTable].push(data)
       });
       
   	  /** reseting crud form */
@@ -209,6 +209,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
     */   
    $scope.newObject = function () {
   	  /** reseting crud form */
+	  $scope[ttmCrudGroupRegister] = {};
   	  $scope[ttmCrudGroupRegister][ttmCrudRegister] = {};
 	   
 	  /** updating state of mode view on form */
