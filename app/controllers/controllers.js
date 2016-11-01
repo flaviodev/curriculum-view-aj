@@ -23,13 +23,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
    /** variables for crud operation setted id data custom attributes on first div in html file */
    // TODO create a web component for this
    var elementDivCrud = document.getElementById('Crud');
-   
-   var ttmContext = elementDivCrud.getAttribute("data-ttm-context");
-   var ttmGetObjects = elementDivCrud.getAttribute("data-ttm-getobjects");
-   var ttmGetObject = elementDivCrud.getAttribute("data-ttm-getobject");
-   var ttmCreateObject = elementDivCrud.getAttribute("data-ttm-createobject"); 
-   var ttmUpdateObject = elementDivCrud.getAttribute("data-ttm-updateobject"); 
-   var ttmDeleteObject = elementDivCrud.getAttribute("data-ttm-deleteobject"); 
+   var ttmModel = elementDivCrud.getAttribute("data-ttm-model");
    var ttmCrudGroupRegister = elementDivCrud.getAttribute("data-ttm-crudgroupregister"); 
    var ttmCrudRegister = elementDivCrud.getAttribute("data-ttm-crudregister"); 
    var ttmCrudTable = elementDivCrud.getAttribute("data-ttm-crudtable"); 
@@ -45,8 +39,8 @@ app.controller('CrudCtrl', function ($scope, $http) {
    /** 
     * getObjects - function responsible to return the registers of crud table 
     */
-   $http({method: 'POST', url: ttmContext+"/"+ttmGetObjects, /** service resquest */ 
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }})
+   $http({method: 'GET', url: ttmModel, /** service resquest */ 
+      headers: { 'Content-Type': 'application/json; charset=UTF-8' }})
       .success(function(data) {
     	 /** ttmCrudTable: collection that contais the registers of table, data: return of service */ 
     	  $scope[ttmCrudTable] = data; 
@@ -60,15 +54,12 @@ app.controller('CrudCtrl', function ($scope, $http) {
    * getObject - invoke the service that return a object (mapped entity) corresponding on id
    */
    $scope.getObject = function (id) {
-  	 /** service parametter */
-	  var dataInput = {"id":id};
 	  
 	  /** service resquest */
       var request = $http({
-         method: "post",
-         url: ttmContext+"/"+ttmGetObject,
-         data: dataInput, 
-         headers:{'Content-Type': 'application/x-www-form-urlencoded'}
+         method: "GET",
+         url: ttmModel+"/"+id,
+         headers:{'Content-Type': 'application/json; charset=UTF-8'}
       });
       
       request.success(function (data) {
@@ -86,10 +77,10 @@ app.controller('CrudCtrl', function ($scope, $http) {
 	  
 	  /** service resquest */
       var request = $http({
-         method: "post",
-         url: ttmContext+"/"+ttmCreateObject,
+         method: "POST",
+         url: ttmModel,
          data: dataInput, 
-         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+         headers : {'Content-Type': 'application/json; charset=UTF-8'}
       });
       
       request.success(function (data) {
@@ -115,10 +106,10 @@ app.controller('CrudCtrl', function ($scope, $http) {
       
 	  /** service resquest */
 	  var request = $http({
-         method: "post",
-         url: ttmContext+"/"+ttmUpdateObject,
+         method: "PUT",
+         url: ttmModel,
          data : dataInput, 
-         headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+         headers : {'Content-Type': 'application/json; charset=UTF-8'}
       });
       
       request.success(function (data) {
@@ -155,16 +146,13 @@ app.controller('CrudCtrl', function ($scope, $http) {
 		   alert("Register is on edition! Can't be deleted.")
 		   return;
 	   }
-	   
-	   /** service parametter */
-      var dataInput = {"id":idObject};
       
       /** service resquest */
       var request = $http({
-         method: "post",
-         url: ttmContext+"/"+ttmDeleteObject,
+         method: "DELETE",
+         url: ttmModel+"/"+idObject,
          data: dataInput, 
-         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+         headers: {'Content-Type': 'application/json; charset=UTF-8'}
       });
  	   
       request.success(function (data) {
