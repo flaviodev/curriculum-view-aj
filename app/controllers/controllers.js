@@ -72,14 +72,11 @@ app.controller('CrudCtrl', function ($scope, $http) {
     * createObject: invoke the service that create a new object (mapped entity)
     */
    $scope.createObject = function (object) {
-	  /** service parametter */
-	  var dataInput = {"object":object};
-	  
 	  /** service resquest */
       var request = $http({
          method: "POST",
          url: ttmModel,
-         data: dataInput, 
+         data: object, 
          headers : {'Content-Type': 'application/json; charset=UTF-8'}
       });
       
@@ -101,14 +98,11 @@ app.controller('CrudCtrl', function ($scope, $http) {
     * updateObject: invoke the service that update the object (mapped entity)
     */   
    $scope.updateObject = function (object) {
-	  /** service parametter */
-	  var dataInput = {"object":object};
-      
 	  /** service resquest */
 	  var request = $http({
          method: "PUT",
          url: ttmModel,
-         data : dataInput, 
+         data : object, 
          headers : {'Content-Type': 'application/json; charset=UTF-8'}
       });
       
@@ -138,11 +132,11 @@ app.controller('CrudCtrl', function ($scope, $http) {
    $scope.deleteObject = function (idObject) {
 	   /** Validation id object */
 	   if(idObject==0) {
-		   alert("Erro: Id of object is wrong (0)");
+		   alert("Error: Id of object can.t be zero (0)");
 		   return;
 	   }
 	   /** Validation if the delete request isnt about a object on edition */
-	   if($scope[ttmCrudGroupRegister][ttmCrudRegister].id==idObject) {
+	   if($scope[ttmCrudGroupRegister]!=null && $scope[ttmCrudGroupRegister][ttmCrudRegister].id==idObject) {
 		   alert("Register is on edition! Can't be deleted.")
 		   return;
 	   }
@@ -151,7 +145,6 @@ app.controller('CrudCtrl', function ($scope, $http) {
       var request = $http({
          method: "DELETE",
          url: ttmModel+"/"+idObject,
-         data: dataInput, 
          headers: {'Content-Type': 'application/json; charset=UTF-8'}
       });
  	   
