@@ -8,6 +8,7 @@
 var app = angular.module('app',['ngRoute']);
 app.config(function($routeProvider, $locationProvider)
 {
+   $locationProvider.html5Mode(false);
    $routeProvider
       .when('/', { /** for route '/', load the template home.html */
          templateUrl:'app/views/home.html',
