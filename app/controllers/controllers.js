@@ -98,6 +98,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
     * updateObject: invoke the service that update the object (mapped entity)
     */   
    $scope.updateObject = function (object) {
+	   alert(object.toSource());
 	  /** service resquest */
 	  var request = $http({
          method: "PUT",
@@ -119,6 +120,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
     	 /** reseting crud form */
     	 $scope[ttmCrudGroupRegister][ttmCrudRegister] = {};
          
+    	 
          /** updating state of mode view on form */
          $scope.view_mode = true;
          $scope.update_mode = false;
