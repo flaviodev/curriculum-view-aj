@@ -171,8 +171,12 @@ app.controller('CrudCtrl', function ($scope, $http) {
       
 	   /** coping data of the crud table object to other object for after updating */
       var copyObject = {}; 
-      for (i in object) { 
-          copyObject[i] = object[i]; 
+      for (i in object) {
+    	  if(object[i].date!=null) {
+    		  copyObject[i] = new Date(object[i].date);
+    	  } else {
+    		  copyObject[i] = object[i]; 
+    	  }
       }
 
       /** setting copy object to crud form */
