@@ -98,6 +98,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
     * updateObject: invoke the service that update the object (mapped entity)
     */   
    $scope.updateObject = function (object) {
+	   alert(object.toSource());
 	  /** service resquest */
 	  var request = $http({
          method: "PUT",
