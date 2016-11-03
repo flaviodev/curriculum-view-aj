@@ -1,7 +1,5 @@
 <!-- @autor flaviodev - Flávio de Souza - fdsdev@gmail.com 
-     window for register profiles using the controller: CrudCtrl -->
-
-<!-- @todo create a web component for reuse the window -->
+     window for register institutes of education using the controller: CrudCtrl -->
 
 <!-- this divs works how variables to set on controller 
      the path of project where the services will be invoked,
@@ -10,10 +8,10 @@
      dont change the id of the div and custom attribuites names.
  -->
 <div id="Crud" class="container" ng-controller="CrudCtrl"
-     data-ttm-model="/curriculum-control-php/Profile"
+     data-ttm-model="/curriculum-control-php/Employer"
      data-ttm-crudgroupregister="form"
-     data-ttm-crudregister="profile"
-     data-ttm-crudtable="profilesTable">
+     data-ttm-crudregister="employer"
+     data-ttm-crudtable="employersTable">
 
     <!-- div of registers table (ttm-crudtable)  -->
 	<div class="col-md-12">
@@ -22,8 +20,6 @@
              <tr>
                 <th></th>
                 <th>Name</th>
-                <th>Date of Birth</th>
-                <th>Document</th>
                 <th></th>
                 <th></th>
              </tr>
@@ -33,17 +29,15 @@
                   Attention: the name of data collection on repeat must be setted on "Crud div" in
                   custom attribute "data-ttm-crudtable"  
              -->
-             <tr ng-repeat="profileItem in profilesTable">
-                <td>{{profileItem.id}}</td>
-                <td>{{profileItem.name}}</td>
-                <td>{{profileItem.dateOfBirth.date | date}}</td>
-                <td>{{profileItem.document}}</td>
+             <tr ng-repeat="employerItem in employersTable">
+                <td>{{employerItem.id}}</td>
+                <td>{{employerItem.name}}</td>
                              
                 <!-- action to load the data on form -->
-                <td><button class="btn btn-primary" ng-click="loadObject(profileItem)">Edit</button></td>
+                <td><button class="btn btn-primary" ng-click="loadObject(employerItem)">Edit</button></td>
                 
                 <!-- action to delete the register on data base -->
-                <td><button class="btn btn-primary" ng-click="deleteObject(profileItem.id)">Delete</button></td>
+                <td><button class="btn btn-primary" ng-click="deleteObject(employerItem.id)">Delete</button></td>
              </tr>          
           </tbody>
        </table>
@@ -58,23 +52,19 @@
 	<form>
 		<div class="form-group"  ng-show="edition_mode">
 		   	<label>Id</label>
-        	<input type="number" name="id" class="form-control" ng-model="form.profile.id" disabled="disabled">
+        	<input type="number" class="form-control" ng-model="form.employer.id" disabled="disabled">
         	<label>Name</label>
-        	<input type="text" name="name" maxlength="50" class="form-control" ng-model="form.profile.name" >
-        	<label>Date of Birth</label>
-        	<input type="date" name="dateOfBirth" maxlength="50" class="form-control" ng-model="form.profile.dateOfBirth" >
-        	<label>Document</label>
-        	<input type="text" name="document" maxlength="50" class="form-control" ng-model="form.profile.document" >
+        	<input type="text" maxlength="50" class="form-control" ng-model="form.employer.name" >
 	    </div>
 
 		<!-- action to show the button for create a new object -->
 		<button class="btn btn-primary" ng-show="view_mode" ng-click="newObject()">New</button>
 		
 		<!-- action to update the register on data base -->
-		<button class="btn btn-primary" ng-show="update_mode" ng-click="updateObject(form.profile)">Update</button>
+		<button class="btn btn-primary" ng-show="update_mode" ng-click="updateObject(form.employer)">Update</button>
 
 		<!-- action to create a new register on data base -->
-		<button class="btn btn-primary" ng-show="create_mode" ng-click="createObject(form.profile)">Save</button>
+		<button class="btn btn-primary" ng-show="create_mode" ng-click="createObject(form.employer)">Save</button>
 
 		<!-- action to reset the form -->
 		<button class="btn btn-primary" ng-show="edition_mode" ng-click="cancelEdition()">Cancel</button>

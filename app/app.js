@@ -21,6 +21,10 @@ app.config(function($routeProvider, $locationProvider)
 	  .when('/instituteOfEducation', {
 	     templateUrl:'app/views/instituteOfEducation.html',
 	     controller:'NavigatorCtrl'})
+	     
+	  .when('/Employer', {
+	     templateUrl:'app/views/Employer.html',
+	     controller:'NavigatorCtrl'})
 
 	  .otherwise ({redirectTo: '/'}); /** if dont find a route, redirect to route '/'  */
 });
