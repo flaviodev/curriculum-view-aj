@@ -98,7 +98,6 @@ app.controller('CrudCtrl', function ($scope, $http) {
     * updateObject: invoke the service that update the object (mapped entity)
     */   
    $scope.updateObject = function (object) {
-	   alert(object.toSource());
 	  /** service resquest */
 	  var request = $http({
          method: "PUT",
@@ -112,20 +111,25 @@ app.controller('CrudCtrl', function ($scope, $http) {
     	  var arrayTable = $scope[ttmCrudTable];
     	  for(i in arrayTable) {
     	    if(arrayTable[i].id == object.id) {
-    	    	arrayTable[i] = $scope[ttmCrudGroupRegister][ttmCrudRegister];
+    	    	arrayTable[i] = parseObjectToTable($scope[ttmCrudGroupRegister][ttmCrudRegister]);
                break;
             }
          }
-    	 
+
     	 /** reseting crud form */
-    	 $scope[ttmCrudGroupRegister][ttmCrudRegister] = {};
-         
-    	 
-         /** updating state of mode view on form */
-         $scope.view_mode = true;
-         $scope.update_mode = false;
-         $scope.edition_mode = false;
+  	    $scope[ttmCrudGroupRegister][ttmCrudRegister] = {};
+  	    
+  	    /** updating state of mode view on form */
+  	    $scope.view_mode = true;
+  	    $scope.update_mode = false;
+  	    $scope.edition_mode = false;
+
       });
+      
+      request.error(function (data, status, headers, config) {
+    	  alert("error: "+data + " - "+status);
+      });
+
    }
 	
    /**
@@ -174,11 +178,7 @@ app.controller('CrudCtrl', function ($scope, $http) {
 	   /** coping data of the crud table object to other object for after updating */
       var copyObject = {}; 
       for (i in object) {
-    	  if(object[i].date!=null) {
-    		  copyObject[i] = new Date(object[i].date);
-    	  } else {
-    		  copyObject[i] = object[i]; 
-    	  }
+    	  copyObject[i] = parseFieldToForm(object[i]);
       }
 
       /** setting copy object to crud form */
@@ -189,6 +189,38 @@ app.controller('CrudCtrl', function ($scope, $http) {
       $scope.create_mode = false;
       $scope.update_mode = true;
       $scope.edition_mode = true;
+   }
+
+   /** handle type conversions on data parse of table to form **/
+   function parseFieldToForm(field) {
+	   if(field.date!=null) {
+		// parsing date to form
+		   return new Date(Number(field.date));
+	   }
+	   
+	   return field;
+   }
+
+   /** copy data of form to table, converting the type of data **/
+   function parseObjectToTable(object) {
+	  var copyObject = {};
+	  for (i in object) {
+		  copyObject[i] = parseFieldToTable(object[i]);
+      }
+	  
+	  return copyObject;
+   }
+   
+   /** handle type conversions on data parse of form to table **/
+   function parseFieldToTable(field) {
+	   if(field instanceof Date) {
+		   // parsing date to table
+		   var dateField = {};
+		   dateField.date = field.getTime();
+		   
+		   return dateField;
+	   }
+	   return field;
    }
 
    /**
