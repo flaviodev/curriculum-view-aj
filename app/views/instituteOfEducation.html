@@ -7,12 +7,15 @@
      and de html componets names for manipulation. Attention:       
      dont change the id of the div and custom attribuites names.
  -->
-<div id="Crud" class="container" ng-controller="CrudCtrl"
+<div id="Crud" ng-controller="CrudCtrl"
      data-ttm-model="/curriculum-control-php/InstituteOfEducation"
      data-ttm-crudgroupregister="form"
      data-ttm-crudregister="institute"
      data-ttm-crudtable="institutesTable">
 
+	<div id="busca">
+		Filter <input type="text" placeholder="Type a name" ng-model="searchProfiles">
+	</div>
     <!-- div of registers table (ttm-crudtable)  -->
 	<div class="col-md-12">
        <table width="100%" cellspacing="0" class="table table-striped" style="font-size: 14px">
@@ -29,19 +32,22 @@
                   Attention: the name of data collection on repeat must be setted on "Crud div" in
                   custom attribute "data-ttm-crudtable"  
              -->
-             <tr ng-repeat="instituteItem in institutesTable">
+             <tr ng-repeat="instituteItem in institutesTable | filter:searchProfiles">
                 <td>{{instituteItem.id}}</td>
                 <td>{{instituteItem.name}}</td>
                              
                 <!-- action to load the data on form -->
-                <td><button class="btn btn-primary" ng-click="loadObject(instituteItem)">Edit</button></td>
+                <td><button class="btn btn-primary" ng-click="loadObject(instituteItem)">
+                	<span class="glyphicon glyphicon-pencil"></span> Edit</button></td>
                 
                 <!-- action to delete the register on data base -->
-                <td><button class="btn btn-primary" ng-click="deleteObject(instituteItem.id)">Delete</button></td>
+                <td><button class="btn btn-danger" ng-click="deleteObject(instituteItem.id)">
+                	<span class="glyphicon glyphicon-remove-circle"></span> Delete</button></td>
              </tr>          
           </tbody>
        </table>
     </div>
+
 
     <!-- data register form. Attention: use the pattern to naming a attribute for 'ng-model', 
          using two grouper for data, a name of group register and a name of register. 
@@ -49,17 +55,16 @@
          these name must be setted on 'crud div'  on custom attributes      
          "data-ttm-group-crudregister" and "data-ttm-crudregister"
          -->
-	<form>
-		<div class="form-group"  ng-show="edition_mode">
+	<form  class="container">
+		<!-- action to show the button for create a new object -->
+		<button class="btn btn-primary" ng-show="view_mode" ng-click="newObject()">New</button>
+		<div class="form-group container"  ng-show="edition_mode">
 		   	<label>Id</label>
         	<input type="number" class="form-control" ng-model="form.institute.id" disabled="disabled">
         	<label>Name</label>
         	<input type="text" maxlength="50" class="form-control" ng-model="form.institute.name" >
 	    </div>
 
-		<!-- action to show the button for create a new object -->
-		<button class="btn btn-primary" ng-show="view_mode" ng-click="newObject()">New</button>
-		
 		<!-- action to update the register on data base -->
 		<button class="btn btn-primary" ng-show="update_mode" ng-click="updateObject(form.institute)">Update</button>
 

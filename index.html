@@ -1,29 +1,29 @@
 <!doctype html>
-<html ng-app="app"  lang="pt-BR" >
-   <head>
-      <meta charset="utf-8">
-      <title>Flavio Dev</title>
-      <link rel="stylesheet" href="vendor/twitter/bootstrap/dist/css/bootstrap.css">
-	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
-	  <link rel="stylesheet" href="public/css/styles.css">
-   </head>
- 
-   <body>
-	  <script src="public/js/angular/angular.min.js"></script>
- 	  <script src="public/js/jquery/jquery.min.js"></script>
-      <script src="public/js/angular/angular-route.min.js"></script>
-
-      <script src="app/app.js"></script>
-      <script src="app/controllers/controllers.js"></script>
-
-      <ul class="nav nav-tabs">
-         <li ng-class="{active: activetab == '/'}"><a href="#/home">Home</a></li>
-         <li ng-class="{active: activetab == '/profile'}"><a href="#/profile">Profile</a></li>
-         <li ng-class="{active: activetab == '/instituteOfEducation'}"><a href="#/instituteOfEducation">Institute of Education</a></li>
-         <li ng-class="{active: activetab == '/Employer'}"><a href="#/Employer">Employer</a></li>
-      </ul>
-      <div ng-view></div>
-   
-   </body>
+<html ng-app="curriculum"  lang="pt-BR" >
+	<head>
+		<meta charset="utf-8">
+		<title>Flavio Dev</title>
+		<link rel="stylesheet" href="vendor/twitter/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+		<link rel="stylesheet" href="public/css/styles.css">
+	</head>
+	
+	<body>
+		<script src="public/js/angular/angular.min.js"></script>
+		<script src="public/js/angular/angular-route.min.js"></script>
+		<script src="public/js/jquery/jquery.min.js"></script>
+		
+		<script src="app/controllers/config.js"></script>
+		<script src="app/controllers/controllers.js"></script>
+		<script src="app/controllers/routes.js"></script>
+		
+		<ul class="nav nav-tabs">
+			<li ng-class="{active: activetab == '/'}"><a href="#/home">Home</a></li>
+			<li ng-class="{active: activetab == '/profile'}"><a href="#/profile">Profile</a></li>
+			<li ng-class="{active: activetab == '/instituteOfEducation'}"><a href="#/instituteOfEducation">Institute of Education</a></li>
+			<li ng-class="{active: activetab == '/Employer'}"><a href="#/Employer">Employer</a></li>
+		</ul>
+		<div ng-view></div>
+	</body>
 </html>
 

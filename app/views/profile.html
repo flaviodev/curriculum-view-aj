@@ -9,7 +9,7 @@
      and de html componets names for manipulation. Attention:       
      dont change the id of the div and custom attribuites names.
  -->
-<div id="Crud" class="container" ng-controller="CrudCtrl"
+<div id="Crud" ng-controller="CrudCtrl"
      data-ttm-model="/curriculum-control-php/Profile"
      data-ttm-crudgroupregister="form"
      data-ttm-crudregister="profile"
@@ -43,14 +43,18 @@
                 <td>{{profileItem.document}}</td>
                              
                 <!-- action to load the data on form -->
-                <td><button class="btn btn-primary" ng-click="loadObject(profileItem)">Edit</button></td>
+                <td><button class="btn btn-primary" ng-click="loadObject(profileItem)">
+                    	<span class="glyphicon glyphicon-pencil"></span> Edit</button></td>
                 
                 <!-- action to delete the register on data base -->
-                <td><button class="btn btn-primary" ng-click="deleteObject(profileItem.id)">Delete</button></td>
+                <td><button class="btn btn-danger" ng-click="deleteObject(profileItem.id)">
+                	<span class="glyphicon glyphicon-remove-circle"></span> Delete</button></td>
              </tr>          
           </tbody>
        </table>
     </div>
+    
+    
 
     <!-- data register form. Attention: use the pattern to naming a attribute for 'ng-model', 
          using two grouper for data, a name of group register and a name of register. 
@@ -58,8 +62,10 @@
          these name must be setted on 'crud div'  on custom attributes      
          "data-ttm-group-crudregister" and "data-ttm-crudregister"
          -->
-	<form>
-		<div class="form-group"  ng-show="edition_mode">
+	<form class="container">
+	    <!-- action to show the button for create a new object -->
+		<button class="btn btn-primary" ng-show="view_mode" ng-click="newObject()">New</button>
+		<div class="form-group container"  ng-show="edition_mode">
 		   	<label>Id</label>
         	<input type="number" name="id" class="form-control" ng-model="form.profile.id" disabled="disabled">
         	<label>Name</label>
@@ -69,9 +75,6 @@
         	<label>Document</label>
         	<input type="text" name="document" maxlength="50" class="form-control" ng-model="form.profile.document" >
 	    </div>
-
-		<!-- action to show the button for create a new object -->
-		<button class="btn btn-primary" ng-show="view_mode" ng-click="newObject()">New</button>
 		
 		<!-- action to update the register on data base -->
 		<button class="btn btn-primary" ng-show="update_mode" ng-click="updateObject(form.profile)">Update</button>
