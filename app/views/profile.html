@@ -39,7 +39,7 @@
              <tr ng-repeat="profileItem in profilesTable | filter:searchProfiles">
                 <td>{{profileItem.id}}</td>
                 <td>{{profileItem.name}}</td>
-                <td>{{profileItem.dateOfBirth.date | date:"dd/MM/yyyy"}}</td>
+                <td>{{profileItem.dateOfBirth.date | date:"shortDate"}}</td>
                 <td>{{profileItem.document}}</td>
                              
                 <!-- action to load the data on form -->
