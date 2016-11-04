@@ -15,6 +15,9 @@
      data-ttm-crudregister="profile"
      data-ttm-crudtable="profilesTable">
 
+	<div id="busca">
+		Filter <input type="text" placeholder="Type a name" ng-model="searchProfiles">
+	</div>
     <!-- div of registers table (ttm-crudtable)  -->
 	<div class="col-md-12">
        <table width="100%" cellspacing="0" class="table table-striped" style="font-size: 14px">
@@ -33,10 +36,10 @@
                   Attention: the name of data collection on repeat must be setted on "Crud div" in
                   custom attribute "data-ttm-crudtable"  
              -->
-             <tr ng-repeat="profileItem in profilesTable">
+             <tr ng-repeat="profileItem in profilesTable | filter:searchProfiles">
                 <td>{{profileItem.id}}</td>
                 <td>{{profileItem.name}}</td>
-                <td>{{profileItem.dateOfBirth.date | date}}</td>
+                <td>{{profileItem.dateOfBirth.date | date:"dd/MM/yyyy"}}</td>
                 <td>{{profileItem.document}}</td>
                              
                 <!-- action to load the data on form -->
