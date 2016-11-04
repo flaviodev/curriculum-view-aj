@@ -8,7 +8,7 @@
  * NavigatorCtrl - controller associated to $routeProvider(app.js) 
  * to control the page navigation  
  */
-app.controller('NavigatorCtrl', function($rootScope, $location){
+curriculum.controller('NavigatorCtrl', function($rootScope, $location){
 	$rootScope.activetab = $location.path();
 });
 
@@ -19,7 +19,7 @@ app.controller('NavigatorCtrl', function($rootScope, $location){
 /** 
  * CrudControl - reuseble controller responsible for operations crud on standards windows  
  */
-app.controller('CrudCtrl', function ($scope, $http) {
+curriculum.controller('CrudCtrl', function ($scope, $http) {
    /** variables for crud operation setted id data custom attributes on first div in html file */
    // TODO create a web component for this
    var elementDivCrud = document.getElementById('Crud');
