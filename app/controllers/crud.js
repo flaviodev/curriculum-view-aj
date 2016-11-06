@@ -8,9 +8,6 @@
  * NavigatorCtrl - controller associated to $routeProvider(app.js) 
  * to control the page navigation  
  */
-curriculum.controller('NavigatorCtrl', function($rootScope, $location){
-	$rootScope.activetab = $location.path();
-});
 
 /** 
  * ttmContext: name of application for invocation of services

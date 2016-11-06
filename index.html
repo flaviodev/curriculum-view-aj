@@ -2,24 +2,29 @@
 <html ng-app="curriculum"  lang="pt-BR" >
 	<head>
 		<meta charset="utf-8">
-		<title>Flavio Dev</title>
+		<title>TTM -Curriculum</title>
 		<link rel="stylesheet" href="vendor/twitter/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+		<link rel="stylesheet" href="public/css/ng-table-min.css">
 		<link rel="stylesheet" href="public/css/styles.css">
 	</head>
 	
+	<script src="public/lib/angular/angular-min.js"></script>
+	<script src="public/lib/angular/ngtable-min.js"></script>
+	<script src="public/lib/angular/angular-route-min.js"></script>
+	<script src="public/lib/jquery/jquery-min.js"></script>
+	
+	<script src="app/config.js"></script>
+	<script src="app/controllers/navigator.js"></script>
+	<script src="app/controllers/crud2.js"></script>
+	<script src="app/routes.js"></script>
+	<script src="app/filters.js"></script>
+	<script src="app/locales/angular-locale_pt-br.js"></script>
+	
 	<body>
-		<script src="public/js/angular/angular.min.js"></script>
-		<script src="public/js/angular/angular-route.min.js"></script>
-		<script src="public/js/jquery/jquery.min.js"></script>
-		
-		<script src="app/config.js"></script>
-		<script src="app/controllers/controllers.js"></script>
-		<script src="app/routes.js"></script>
-		<script src="app/locales/angular-locale_pt-br.js"></script>
 		
 		<ul class="nav nav-tabs">
-			<li ng-class="{active: activetab == '/'}"><a href="#/home">Home</a></li>
+			<!--  <li ng-class="{active: activetab == '/'}"><a href="#/home">Home</a></li> -->
 			<li ng-class="{active: activetab == '/profile'}"><a href="#/profile">Profile</a></li>
 			<li ng-class="{active: activetab == '/instituteOfEducation'}"><a href="#/instituteOfEducation">Institute of Education</a></li>
 			<li ng-class="{active: activetab == '/Employer'}"><a href="#/Employer">Employer</a></li>
