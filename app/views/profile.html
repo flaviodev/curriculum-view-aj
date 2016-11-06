@@ -10,38 +10,38 @@
      dont change the id of the div and custom attribuites names.
  -->
 <div id="Crud" ng-controller="CrudCtrl"
-     data-ttm-model="/curriculum-control-php/Profile"
-     data-ttm-crudregister="profile"
+     data-ttm-control-service="curriculum-control-php"
+     data-ttm-entity="Profile"
      style="font-size: 14px">
 
 	<div  style="height:0px;text-align:center;vertical-align: bottom"><br/>
 		<span id="message-status" style="display: none;text-align: center,font-size: 10px"></span>
 	</div>
 	<div id='edition_area' class='container' style="margin-top:5px">
-		<div id='update_title' ng-show="updating_mode">Updating Profile (Id:{{profile.id}})</div>
+		<div id='update_title' ng-show="updating_mode">Updating Profile (Id:{{Profile.id}})</div>
 		<form name='editForm' novalidate id='idEditForm' ng-show="edition_state">
-			Nome: <input type="text" name='name' ng-minlength='4' ng-maxlength='100' class="form-control" ng-model="profile.name" required >
+			Name: <input type="text" name='name' ng-minlength='4' ng-maxlength='100' class="form-control" ng-model="Profile.name" required >
 			<div style="color:red;font-size:10px" ng-show="editForm.name.$error.required">* Name is required</div>
 			<div style="color:red;font-size:10px" ng-show="editForm.name.$error.minlength">* Name must be at least 4 characters</div>
 			<div style="color:red;font-size:10px" ng-show="editForm.name.$error.maxlength">* Name can be a maximum of 100 characters</div>
 			
-			Date of Birth: <input type="text" name='dateOfBirth' class="form-control" ng-model="profile.dateOfBirth" required>
+			Date of Birth: <input type="date" name='dateOfBirth' placeholder="YYYY-MM-DD" class="form-control" ng-model="Profile.dateOfBirth" required>
 			<div style="color:red;font-size:10px" ng-show="editForm.dateOfBirth.$error.required">* Date of Birth is required</div>
 			
-			Preço: <input type="text" name='document' ng-pattern="/^[0-9]+$/" class="form-control" ng-model="profile.document" required>
+			Document: <input type="text" name='document' ng-pattern="/^[0-9]+$/" class="form-control" ng-model="Profile.document" required>
 			<div style="color:red;font-size:10px" ng-show="editForm.document.$error.required">* Document is required</div>
 			<div style="color:red;font-size:10px" ng-show="editForm.document.$error.pattern">* Document must have only numeric characters</div>
 			
 		    <div id='updateButtons' ng-show="updating_mode" style='margin-top:5px;margin-bottom:5px;margin-left:5px;'>
 				<!-- action to update the register on data base -->
-				<button class="btn btn-success" ng-disabled='editForm.$invalid' ng-click="updateObject(profile)">Update</button>
+				<button class="btn btn-success" ng-disabled='editForm.$invalid' ng-click="updateObject(Profile)">Update</button>
 										
 				<!-- action to reset the form -->
 				<button class="btn btn-default" ng-click="cancelEdition()">Cancel</button>
 			</div>
 			<div id='saveButtons' ng-show="creating_mode" style='margin-top:5px;margin-bottom:5px;margin-left:5px;'>
 				<!-- action to create a new register on data base -->
-				<button class="btn btn-success"  ng-disabled='editForm.$invalid' ng-click="createObject(profile)">Save</button>
+				<button class="btn btn-success"  ng-disabled='editForm.$invalid' ng-click="createObject(Profile)">Save</button>
 						
 				<!-- action to reset the form -->
 				<button class="btn btn-default" ng-click="cancelEdition()">Cancel</button>
@@ -52,16 +52,19 @@
 	<div id='registerTables' class='container'>
 		<div id='newButton' ng-show="view_state"><button class="btn btn-primary"  ng-click="newObject()" style='float:right; margin-top:5px;margin-bottom:5px;margin-left:5px;'>+ New Profile</button></div>
 		<table cellspacing="0" ng-table="tableParams" show-filter="true" class="table table-striped" style="margin-right:auto; margin-left:auto;">
-			<tr ng-repeat="profile in $data">
-				<td title="'id'" style="width:3%">{{profile.id }}</td>
-				<td title="'Name'" sortable="'name'"  filter="{name: 'text'}"  >{{profile.name | captalize }}</td>
+			<tr ng-repeat="Profile in $data">
+				<td title="'id'" style="width:3%">{{Profile.id }}</td>
+				<td title="'Name'" sortable="'name'"  filter="{name: 'text'}"  >{{Profile.name | captalize }}</td>
+				<td title="'Document'" sortable="'document'"  filter="{document: 'text'}" style="width:25%" >{{Profile.document }}</td>
+				<td title="'Date of Birth'" sortable="'dateOfBirth'" style="width:15%">{{Profile.dateOfBirth.date | date }}</td>
+				
 				<td style="width:3%">
-					<button type="button" class="btn btn-warning" style="float:right;font-size:10px" ng-click="loadObject(profile)">
+					<button type="button" class="btn btn-warning" style="float:right;font-size:10px" ng-click="loadObject(Profile)">
 					   <span class="glyphicon glyphicon-pencil"></span>
 					</button>
 				</td>
 				<td style="width:3%">
-					<button type="button" class="btn btn-danger" style="float:right;font-size:10px" ng-click="deleteObject(profile)">
+					<button type="button" class="btn btn-danger" style="float:right;font-size:10px" ng-click="deleteObject(Profile)">
 					   <span class="glyphicon glyphicon-remove-circle"></span>
 					</button>
 				</td>

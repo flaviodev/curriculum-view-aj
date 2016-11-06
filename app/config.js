@@ -35,3 +35,4 @@ function showMessage(idElement,typeMessage, message) {
 		$("#"+idElement).hide('fast');
 	},2000);
 }
+

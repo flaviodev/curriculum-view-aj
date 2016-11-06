@@ -20,8 +20,9 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
    /** variables for crud operation setted id data custom attributes on first div in html file */
    // TODO create a web component for this
    var elementDivCrud = document.getElementById('Crud');
-   var ttmModel = elementDivCrud.getAttribute("data-ttm-model");
-   var ttmCrudRegister = elementDivCrud.getAttribute("data-ttm-crudregister"); 
+   var ttmEntity = elementDivCrud.getAttribute("data-ttm-entity"); 
+   var ttmControlService = elementDivCrud.getAttribute("data-ttm-control-service");
+   var urlControlService = "/" + ttmControlService + "/" + ttmEntity;
    
    /** setting initial state of mode view on form */ 
    $scope.view_state=true;
@@ -36,7 +37,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
    /** 
     * getObjects - function responsible to return the registers of crud table 
     */
-   $http({method: 'GET', url: ttmModel, /** service resquest */ 
+   $http({method: 'GET', url: urlControlService, /** service resquest */ 
       headers: { 'Content-Type': 'application/json; charset=UTF-8' }})
       .success(function(data) {
     	 /** ttmCrudTable: collection that contais the registers of table, data: return of service */ 
@@ -58,13 +59,13 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
 	  /** service resquest */
       var request = $http({
          method: "GET",
-         url: ttmModel+"/"+id,
+         url: urlControlService+"/"+id,
          headers:{'Content-Type': 'application/json; charset=UTF-8'}
       });
       
       request.success(function (data) {
     	 /** setting the returned register to crud form */
-    	  $scope[ttmCrudRegister] = data;
+    	  $scope[ttmEntity] = data;
       });
    }
 
@@ -75,20 +76,20 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
 	  /** service resquest */
       var request = $http({
          method: "POST",
-         url: ttmModel,
+         url: urlControlService,
          data: object, 
          headers : {'Content-Type': 'application/json; charset=UTF-8'}
       });
       
       request.success(function (data) {
     	 /** pushing the created register to crud table */
-  		  objects.push(data);
+  		  objects.push(parseObjectToTable(data));
 		
 		  $scope.tableParams.reload();
 		  $scope.tableParams.sorting();
 		
 		  /** reseting crud form */
-		  $scope[ttmCrudRegister] = {};
+		  $scope[ttmEntity] = {};
 
 		  /** updating state of mode view on form */
 		  $scope.view_state = true;
@@ -110,7 +111,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
 	  /** service resquest */
 	  var request = $http({
          method: "PUT",
-         url: ttmModel,
+         url: urlControlService,
          data : object, 
          headers : {'Content-Type': 'application/json; charset=UTF-8'}
       });
@@ -119,7 +120,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
      	 /** updating the data on crud table */ 
      	 for(i in objects) {
        	    if(objects[i].id == object.id) {
-       	    	objects[i] = object;
+       	    	objects[i] = parseObjectToTable(data);
                   break;
                }
           }
@@ -127,7 +128,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
           $scope.tableParams.reload();
 
           /** reseting crud form */
-    	  $scope[ttmCrudRegister] = {};
+    	  $scope[ttmEntity] = {};
 
     	  /** updating state of mode view on form */
     	  $scope.view_state = true;
@@ -140,7 +141,6 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
       request.error(function (data, status, headers, config) {
     	  showMessage("message-status","danger",'Error trying update profile: '+data);
       });
-
    }
 	
    /**
@@ -148,7 +148,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
     */   
    $scope.deleteObject = function (object) {
 	   /** Validation if the delete request isnt about a object on edition */
-	   if($scope[ttmCrudRegister]!=null && $scope[ttmCrudRegister].id==object.id) {
+	   if($scope[ttmEntity]!=null && $scope[ttmEntity].id==object.id) {
 		   alert("Register is on edition! Can't be deleted.")
 		   return;
 	   }
@@ -156,7 +156,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
       /** service resquest */
       var request = $http({
          method: "DELETE",
-         url: ttmModel+"/"+object.id,
+         url: urlControlService+"/"+object.id,
          headers: {'Content-Type': 'application/json; charset=UTF-8'}
       });
  	   
@@ -165,7 +165,12 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
   	     var index = objects.indexOf(object);
 	     objects.splice(index,1);
 	   
-	     $scope.tableParams.reload();
+	     $scope.tableParams.reload().then(function(data) {
+	         if ($scope.tableParams.data.length === 0 && $scope.tableParams.total() > 0) {
+	        	 $scope.tableParams.page($scope.tableParams.page() - 1);
+	        	 $scope.tableParams.reload();
+	           }
+	     });
 		
 		 showMessage("message-status","success",'Profile deleted with success');
       });
@@ -188,7 +193,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
 	   }
 
 	   /** setting copy object to crud form */
-	   $scope[ttmCrudRegister] = copyobject;
+	   $scope[ttmEntity] = copyobject;
 	     
 	   $scope.view_state = false;
 	   $scope.creating_mode = false;
@@ -233,7 +238,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
     */   
    $scope.newObject = function () {
 	   /** reseting crud form */
-      $scope[ttmCrudRegister] = {};
+      $scope[ttmEntity] = {};
       
       /** updating state of mode view on form */
       $scope.view_state = false;
@@ -246,7 +251,7 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
     */   
    $scope.cancelEdition = function () {
 	   /** reseting crud form */
-	  $scope[ttmCrudRegister] = {};
+	  $scope[ttmEntity] = {};
 
 	  /** updating state of mode view on form */
 	  $scope.view_state=true;
@@ -255,3 +260,4 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
 	  $scope.updating_mode = false;
    }
 });
+
