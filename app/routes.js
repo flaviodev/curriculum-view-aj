@@ -1,11 +1,11 @@
 curriculum.config(function($routeProvider, $locationProvider) {
    $routeProvider
       .when('/', { 
-         templateUrl:'app/views/profile2.html',
+         templateUrl:'app/views/profile.html',
          controller:'NavigatorCtrl'})
       
       .when('/profile', {
-	     templateUrl:'app/views/profile2.html',
+	     templateUrl:'app/views/profile.html',
 	     controller:'NavigatorCtrl'})
       
 	  .when('/instituteOfEducation', {

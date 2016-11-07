@@ -1,5 +1,5 @@
 <!-- @autor flaviodev - Flávio de Souza - fdsdev@gmail.com 
-     window for register institutes of education using the controller: CrudCtrl -->
+     window for register instituties of education using the controller: CrudCtrl -->
 
 <!-- this divs works how variables to set on controller 
      the path of project where the services will be invoked,
@@ -8,70 +8,68 @@
      dont change the id of the div and custom attribuites names.
  -->
 <div id="Crud" ng-controller="CrudCtrl"
-     data-ttm-model="/curriculum-control-php/InstituteOfEducation"
-     data-ttm-crudgroupregister="form"
-     data-ttm-crudregister="institute"
-     data-ttm-crudtable="institutesTable">
+     data-ttm-control-service="curriculum-control-php"
+     data-ttm-entity="InstituteOfEducation">
 
-	<div id="busca">
-		Filter <input type="text" placeholder="Type a name" ng-model="searchProfiles">
+	<div id='message-area'>
+		<span id="message-status"></span>
 	</div>
-    <!-- div of registers table (ttm-crudtable)  -->
-	<div class="col-md-12">
-       <table width="100%" cellspacing="0" class="table table-striped" style="font-size: 14px">
-	      <thead>
-             <tr>
-                <th></th>
-                <th>Name</th>
-                <th></th>
-                <th></th>
-             </tr>
-          </thead>
-          <tbody>
-             <!-- Repeation for fill the table with the returned data of the service (ttm-getobjects) 
-                  Attention: the name of data collection on repeat must be setted on "Crud div" in
-                  custom attribute "data-ttm-crudtable"  
-             -->
-             <tr ng-repeat="instituteItem in institutesTable | filter:searchProfiles">
-                <td>{{instituteItem.id}}</td>
-                <td>{{instituteItem.name}}</td>
-                             
-                <!-- action to load the data on form -->
-                <td><button class="btn btn-primary" ng-click="loadObject(instituteItem)">
-                	<span class="glyphicon glyphicon-pencil"></span> Edit</button></td>
-                
-                <!-- action to delete the register on data base -->
-                <td><button class="btn btn-danger" ng-click="deleteObject(instituteItem.id)">
-                	<span class="glyphicon glyphicon-remove-circle"></span> Delete</button></td>
-             </tr>          
-          </tbody>
-       </table>
-    </div>
+	
+	<div id='edition-area' class="container">
+	
+		<div id='update-title' ng-show="updating_mode">Updating Institute of Education (Id:{{InstituteOfEducation.id}})</div>
+	
+		<form id='edtition-form' name='editForm' ng-show="edition_state" novalidate>
+			
+			<!-- Edition fields form -->
+			Name: <input type="text" name='name' ng-minlength='4' ng-maxlength='100' class="form-control" ng-model="InstituteOfEducation.name" required >
+			<div class='required-field' ng-show="editForm.name.$error.required">* Name is required</div>
+			<div class='required-field' ng-show="editForm.name.$error.minlength">* Name must be at least 4 characters</div>
+			<div class='required-field' ng-show="editForm.name.$error.maxlength">* Name can be a maximum of 100 characters</div>
+						
+		    <div id='update-buttons' ng-show="updating_mode">
+				<!-- action to update the register on data base -->
+				<button class="btn btn-success" ng-disabled='editForm.$invalid' ng-click="updateObject(InstituteOfEducation)">Update</button>
+										
+				<!-- action to reset the form -->
+				<button class="btn btn-default" ng-click="cancelEdition()">Cancel</button>
+			</div>
+	
+			<div id='save-buttons' ng-show="creating_mode">
+				<!-- action to create a new register on data base -->
+				<button class="btn btn-success"  ng-disabled='editForm.$invalid' ng-click="createObject(InstituteOfEducation)">Save</button>
+						
+				<!-- action to reset the form -->
+				<button class="btn btn-default" ng-click="cancelEdition()">Cancel</button>
+			</div>
+		</form>
+	</div>
 
-
-    <!-- data register form. Attention: use the pattern to naming a attribute for 'ng-model', 
-         using two grouper for data, a name of group register and a name of register. 
-         ex: formStudent.student.name (groupResgister.register.attribute)
-         these name must be setted on 'crud div'  on custom attributes      
-         "data-ttm-group-crudregister" and "data-ttm-crudregister"
-         -->
-	<form  class="container">
-		<!-- action to show the button for create a new object -->
-		<button class="btn btn-primary" ng-show="view_mode" ng-click="newObject()">New</button>
-		<div class="form-group container"  ng-show="edition_mode">
-		   	<label>Id</label>
-        	<input type="number" class="form-control" ng-model="form.institute.id" disabled="disabled">
-        	<label>Name</label>
-        	<input type="text" maxlength="50" class="form-control" ng-model="form.institute.name" >
-	    </div>
-
-		<!-- action to update the register on data base -->
-		<button class="btn btn-primary" ng-show="update_mode" ng-click="updateObject(form.institute)">Update</button>
-
-		<!-- action to create a new register on data base -->
-		<button class="btn btn-primary" ng-show="create_mode" ng-click="createObject(form.institute)">Save</button>
-
-		<!-- action to reset the form -->
-		<button class="btn btn-primary" ng-show="edition_mode" ng-click="cancelEdition()">Cancel</button>
-	</form>
+	<div id='table-area' class='container'>
+	
+		<div id='new-button' ng-show="view_state">
+			<button class="btn btn-primary"  ng-click="newObject()">+ New Institute of Education</button>
+		</div>
+	
+		<table id="registers-table" cellspacing="0" ng-table="tableParams" show-filter="true" class="table table-striped">
+			<tr ng-repeat="InstituteOfEducation in $data">
+				
+				<!-- register fields table form -->
+				<td title="'id'" style="width:3%">{{InstituteOfEducation.id }}</td>
+				<td title="'Name'" sortable="'name'"  filter="{name: 'text'}"  >{{InstituteOfEducation.name }}</td>
+				
+				<td style="width:3%">
+					<button id='button-load' type="button" class="btn btn-warning" ng-click="loadObject(InstituteOfEducation)">
+					   <span class="glyphicon glyphicon-pencil"></span>
+					</button>
+				</td>
+				
+				<td style="width:3%">
+					<button id='button-delete' type="button" class="btn btn-danger" ng-click="deleteObject(InstituteOfEducation)">
+					   <span class="glyphicon glyphicon-remove-circle"></span>
+					</button>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>

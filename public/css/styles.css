@@ -1,3 +1,57 @@
 body {
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'Ubuntu', sans-serif; 	font-size: 14px;
+}
+
+/** crud **/
+
+#message-area { 
+	height:0px; text-align:center; 
+}
+
+#message-status {
+	display: none;text-align: center,font-size: 10px;vertical-align: middle; 
+}
+
+#edition-area {
+	margin-top:5px;
+}
+
+#update-title {
+	
+}
+
+#edtition-form {
+	
+}
+
+.required-field {
+	color:red; font-size:10px
+}
+
+#update-buttons {
+	margin-top:5px;margin-bottom:5px;margin-left:5px;
+}
+
+#save-buttons {
+	margin-top:5px;margin-bottom:5px;margin-left:5px;
+}
+
+#table-area {
+	
+}
+
+#new-button {
+	float:right; margin-top:5px;margin-bottom:5px;margin-left:5px;
+}
+
+#registers-table {
+	margin-right:auto; margin-left:auto;
+}
+
+#button-load {
+	float:right;font-size:10px
+}
+
+#button-delete {
+	float:right;font-size:10px
 }
