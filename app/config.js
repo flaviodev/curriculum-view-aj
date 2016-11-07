@@ -33,6 +33,16 @@ function showMessage(idElement,typeMessage, message) {
 	setTimeout(function(){
 		$("#"+idElement).removeClass('alert alert-'+typeMessage);
 		$("#"+idElement).hide('fast');
-	},2000);
+	},4000);
 }
 
+curriculum.directive('showFocus', function($timeout) {
+	  return function(scope, element, attrs) {
+	    scope.$watch(attrs.showFocus, 
+	      function (newValue) { 
+	        $timeout(function() {
+	            newValue && element[0].focus();
+	        });
+	      },true);
+	  };    
+	});
