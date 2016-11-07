@@ -5,32 +5,95 @@
  */
 
 /** 
- * NavigatorCtrl - controller associated to $routeProvider(app.js) 
- * to control the page navigation  
- */
-
-/** 
- * ttmContext: name of application for invocation of services
+ * ttmContext: name of application for invocation of crud services
  */
 
 /** 
  * CrudControl - reuseble controller responsible for operations crud on standards windows  
  */
-curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParams) {
+curriculum.controller('CrudCtrl', function ($scope,$window, $http, $filter, NgTableParams) {
    /** variables for crud operation setted id data custom attributes on first div in html file */
    // TODO create a web component for this
    var elementDivCrud = document.getElementById('Crud');
+   
    var ttmEntity = elementDivCrud.getAttribute("data-ttm-entity"); 
+   var ttmEntityName = elementDivCrud.getAttribute("data-ttm-entity-name");
    var ttmControlService = elementDivCrud.getAttribute("data-ttm-control-service");
+   
    var urlControlService = "/" + ttmControlService + "/" + ttmEntity;
+
+   var elementDivResgistersTable = document.getElementById('registers-table');
+   
+   var sortByColumn;
+   var sortByValue;
+
+   var filterByColumn;
+   var filterByValue;
+   
+   var ttmSortBy = elementDivResgistersTable.getAttribute("data-init-sortby"); 
+   var ttmFilterBy = elementDivResgistersTable.getAttribute("data-init-filterby");
+   
+   if(ttmSortBy != undefined && ttmSortBy.indexOf(":")>-1) {
+	   partsOfSortBy = ttmSortBy.split(":");
+	   sortByColumn = partsOfSortBy[0];
+	   sortByValue = partsOfSortBy[1];
+   }
+   
+   if(ttmFilterBy != undefined && ttmFilterBy.indexOf(":")>-1) {
+	   partsOfFilterBy = ttmFilterBy.split(":");
+	   filterByColumn = partsOfFilterBy[0];
+	   filterByValue = partsOfFilterBy[1];
+   }
    
    /** setting initial state of mode view on form */ 
    $scope.view_state=true;
    $scope.edition_state = false;   
    $scope.creating_mode = false;
    $scope.updating_mode = false;
-   
+      
+   /** register array for storing the table data on screen */
    var objects = [];
+   
+//   setInterval(tableRegistersRefresh, 15000);
+//   
+//   function tableRegistersRefresh() {
+//      var request = $http({
+//          method: "GET",
+//          url: urlControlService,
+//          headers:{'Content-Type': 'application/json; charset=UTF-8'}
+//       });
+//       
+//       request.success(function (data) {
+//     	  /** ... */
+//    	  var dataResult = [];
+//          for(i in data) {
+//       		 objects[data[i].id] = data[i];
+//       		 dataResult[data[i].id] = data[i];
+//          }
+//          
+//          for(i in objects) {
+//        	  if(dataResult[i] == undefined) {
+//        		  objects.splice(i,1);
+//        	  } 
+//          }
+//    	       	  
+// 	     $scope.tableParams.reload().then(function(data) {
+//	         if ($scope.tableParams.data.length === 0 && $scope.tableParams.total() > 0) {
+//	        	 $scope.tableParams.page($scope.tableParams.page() - 1);
+//	        	 $scope.tableParams.reload();
+//	           }
+//	     });
+//
+//   		  $scope.tableParams.sorting();
+//   		  
+//   		showMessage("message-status","success",'Refreshing '+ttmEntityName+' registers');
+//       });
+//       
+//       request.error(function (data, status, headers, config) {
+//    	   showMessage("message-status","danger",'Error trying get '+ttmEntityName+' registers: '+data);
+//       });
+//   }
+   
    
    /** Crude operations (invoke crud services) */
    
@@ -41,15 +104,23 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
       headers: { 'Content-Type': 'application/json; charset=UTF-8' }})
       .success(function(data) {
     	 /** ttmCrudTable: collection that contais the registers of table, data: return of service */ 
-		 var sorting = { name: "asc" };
-    	 var filter = {name:""};
-    	
-    	 objects = data;
+      	 objects = data;
+    	  
+    	 var sorting = {};
+    	 if(sortByColumn != undefined) {
+    		 sorting[sortByColumn] = sortByValue;
+    	 }
     	 
-    	 tablePaging($scope, $filter, NgTableParams, objects, 5, sorting, filter);      
+    	 var filter = {};
+    	 if(filterByColumn != undefined) {
+    		 filter[filterByColumn] = filterByValue;
+    	 }
+    	 
+    	 tablePaging($scope, $filter, NgTableParams, objects, 5, sorting, filter);
+     	 
       })
       .error(function(data, status, headers, config) {
-    	  showMessage("message-status","danger",'Error trying get profiles: '+data);
+    	  alert("message-status","danger",'Error trying get '+ttmEntityName+' registers: '+data);
       });
 
   /**
@@ -66,6 +137,10 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
       request.success(function (data) {
     	 /** setting the returned register to crud form */
     	  $scope[ttmEntity] = data;
+      });
+      
+      request.error(function (data, status, headers, config) {
+    	  alert("message-status","danger",'Error trying get '+ttmEntityName+': '+data);
       });
    }
 
@@ -96,11 +171,11 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
 		  $scope.creating_mode = false;
 		  $scope.edition_state = false;
 		  
-		  showMessage("message-status","success",'Profile saved with success');
+		  showMessage("message-status","success",ttmEntityName+' saved with success');
       });
       
       request.error(function (data, status, headers, config) {
-    	  showMessage("message-status","danger",'Error trying save profile: '+data);
+    	  alert("message-status","danger",'Error trying save '+ttmEntityName+': '+data);
       });
    }	
 
@@ -135,11 +210,11 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
     	  $scope.updating_mode = false;
     	  $scope.edition_state = false;
     	  
-		  showMessage("message-status","success",'Profile udated with success');
+		  showMessage("message-status","success",ttmEntityName+' updated with success');
       });
       
       request.error(function (data, status, headers, config) {
-    	  showMessage("message-status","danger",'Error trying update profile: '+data);
+    	  alert("message-status","danger",'Error trying update '+ttmEntityName+': '+data);
       });
    }
 	
@@ -172,11 +247,11 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
 	           }
 	     });
 		
-		 showMessage("message-status","success",'Profile deleted with success');
+		 showMessage("message-status","success",ttmEntityName+' deleted with success');
       });
       
       request.error(function (data, status, headers, config) {
-    	  showMessage("message-status","danger",'Error trying delete profile: '+data);
+    	  alert('Error trying delete '+ttmEntityName+': '+data);
       });
    }
    
@@ -259,5 +334,14 @@ curriculum.controller('CrudCtrl', function ($scope, $http, $filter, NgTableParam
 	  $scope.creating_mode = false;
 	  $scope.updating_mode = false;
    }
+   
+   
+   $scope.showDeleteConfirm = function (object) {
+       if ($window.confirm("Would you like to delete this register?")) {
+    	   $scope.deleteObject(object);
+       }
+   }
+	  
+   
 });
 
