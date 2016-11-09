@@ -1,0 +1,16 @@
+<div id="ttm-crud-form-edition-buttons">
+	<div id='update-buttons' ng-show="reg.updating_mode">
+		<!-- action to update the register on data base -->
+		<button type="submit" class="btn btn-success" ng-disabled='editForm.$invalid' >Update</button>
+							
+		<!-- action to reset the form -->
+		<button type="button" class="btn btn-default" ng-click="reg.cancelEdition()">Cancel</button>
+	</div>
+	<div id='save-buttons' ng-show="reg.creating_mode">
+		<!-- action to create a new register on data base -->
+		<button  type="submit" class="btn btn-success" ng-disabled='editForm.$invalid'>Save</button>
+				
+		<!-- action to reset the form -->
+		<button type="button" class="btn btn-default" ng-click="reg.cancelEdition()">Cancel</button>
+	</div>
+</div>

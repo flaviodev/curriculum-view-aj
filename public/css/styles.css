@@ -16,15 +16,15 @@ body {
 	margin-top:5px;
 }
 
-#update-title {
-	
+.ttm-crud-title {
+   color:gray; font-style:italic; font-stretch:condensed; font-size:15px	
 }
 
 #edtition-form {
 	
 }
 
-.required-field {
+ttm-crud-field-error {
 	color:red; font-size:10px
 }
 

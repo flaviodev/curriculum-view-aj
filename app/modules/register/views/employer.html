@@ -1,0 +1,65 @@
+<!-- @autor flaviodev - Flávio de Souza - fdsdev@gmail.com
+     employer.html - window for registering of the employers -->
+
+<!--  this view uses the controller: registerController with alias rc 
+	  all crud templates references this alias, so always use rc 
+-->
+
+<!-- this div works how variables to set on controller 
+     the path of project where the services will be invoked,
+     the crud services to obtain objects to table
+     and the html componets names for manipulation. 
+     Dont change the id of the div and custom attribuites names.
+ -->
+<div id="ttm-crud-config" service='curriculum-control-php' resource='Employer' name-resource='Employer' ng-controller="registerController as reg"> 
+    
+    <!-- directive with template for viewing the messages -->
+    <ttm-crud-messages></ttm-crud-messages>
+
+	<!-- area of the edition form  -->
+	<div id='edition-area' class="container">
+		
+		<!-- directive with template of the register title  -->
+		<ttm-crud-title></ttm-crud-title>
+			
+		<!-- register edition form -->
+		<form id='edtition-form' name='editForm' ng-show="reg.edition_state" novalidate 
+		      ng-submit="reg.creating_mode ? reg.createObject(register) : reg.updateObject(register)">
+			
+			<!-- Edition fields form -->
+			Name: 
+			<ttm-crud-field-error ng-show="editForm.name.$error.required">* Name is required</ttm-crud-field-error>
+			<ttm-crud-field-error ng-show="editForm.name.$error.minlength">* Name must be at least 4 characters</ttm-crud-field-error>
+			<ttm-crud-field-error ng-show="editForm.name.$error.maxlength">* Name can be a maximum of 100 characters</ttm-crud-field-error>
+			<input type="text" name='name' ng-minlength='4' ng-maxlength='100' class="form-control" show-focus="reg.edition_state"  ng-model="register.name" required >
+			
+			<!-- directive with template of the register edition buttons  -->
+			<ttm-crud-form-edition-buttons></ttm-crud-form-edition-buttons>
+		</form>
+	</div>
+
+	<!-- registers table -->
+	<div id='table-area' class='container'>
+	
+		<!-- directive with template of the new register button  -->
+		<ttm-crud-form-new-button>+ New Employer</ttm-crud-form-new-button>
+
+		<!-- ngTable with pagining, sorting and filtering -->
+		<table id="registers-table" cellspacing="0" class="table table-striped" 
+		       ng-table="reg.tableParams" ttm-sort-by="name:asc">
+		       
+			<tr ng-repeat="register in $data">
+				
+				<!-- register fields table form -->
+				<td title="'id'" style="width:3%">{{register.id }}</td>
+				<td title="'Name'" sortable="'name'"  filter="{name: 'text'}" >{{register.name | captalize }}</td>
+				
+				<!-- directive with template of the register load button  -->
+				<td style="width:3%"><ttm-crud-table-load-button></ttm-crud-table-load-button></td>
+				
+				<!-- directive with template of the register delete button  -->
+				<td style="width:3%"><ttm-crud-table-delete-button></ttm-crud-table-delete-button></td>
+			</tr>
+		</table> 
+	</div>
+</div>

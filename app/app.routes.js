@@ -1,20 +1,21 @@
-curriculum.config(function($routeProvider, $locationProvider) {
+
+angular.module('app').config(function($routeProvider, $locationProvider) {
    $routeProvider
       .when('/', { 
-         templateUrl:'app/views/profile.html',
-         controller:'NavigatorCtrl'})
+         templateUrl:'app/modules/register/views/profile.html',
+         controller:'navigationController'})
       
       .when('/profile', {
-	     templateUrl:'app/views/profile.html',
-	     controller:'NavigatorCtrl'})
+	     templateUrl:'app/modules/register/views/profile.html',
+	     controller:'navigationController'})
       
 	  .when('/instituteOfEducation', {
-	     templateUrl:'app/views/instituteOfEducation.html',
-	     controller:'NavigatorCtrl'})
+	     templateUrl:'app/modules/register/views/instituteOfEducation.html',
+	     controller:'navigationController'})
 	     
 	  .when('/Employer', {
-	     templateUrl:'app/views/Employer.html',
-	     controller:'NavigatorCtrl'})
+	     templateUrl:'app/modules/register/views/employer.html',
+	     controller:'navigationController'})
 
 	  .otherwise ({redirectTo: '/'}); 
 });
