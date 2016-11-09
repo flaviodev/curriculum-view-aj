@@ -12,18 +12,12 @@
 	function registerController ($scope, $window, $filter, NgTableParams, registerService) {
 		/* jshint validthis: true */
 		var self = this;
-		
+
 		/** CRUD entity for comunication with control layer (assembly url) */
 		self.ttmEntity = $("#ttm-crud-config").attr("resource"); 
 		
 		/** CRUD entity name for showing on screen */
 		self.ttmEntityName = $("#ttm-crud-config").attr("name-resource");
-		
-		/** service context name of control layer (URL base path) */
-		self.ttmControlService = $("#ttm-crud-config").attr("service");
-		
-		/** URL path REST CRUD Resquest */
-		var urlControlService = "/" + self.ttmControlService + "/" + self.ttmEntity;
 		
 		var sortByColumn;
 		var sortByValue;
@@ -58,7 +52,7 @@
 		
 		/** Crude operations (invoke crud services) */
 		
-		registerService.setServicePath(self.ttmControlService);
+		registerService.setServicePath(controlLayerService);
 		registerService.setResource(self.ttmEntity);
 		
 		/** 

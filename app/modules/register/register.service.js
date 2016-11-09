@@ -23,7 +23,7 @@
 		self.header = {'Content-Type': 'application/json; charset=UTF-8'};
 		
 		function getUri() {
-			return "/"+self.servicePath+"/"+self.resource; 
+			return self.servicePath+"/"+self.resource; 
 		}
 		
 		function doRequest(requestMethod, requestUrl, requestData, onSuccessFunction, onErrorFunction) {
