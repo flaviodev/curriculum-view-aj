@@ -1,5 +1,19 @@
 {
-    "require": {
-		"twitter/bootstrap" : "v3.1.1"
-    } 
+	"name" : "flaviodev/curriculum-view-ajs",
+	"type" : "api",
+	"description" : "",
+	"version" : "dev-master",
+	"license" : "MIT",
+	"minimum-stability" : "dev",
+	"homepage" : "https://github.com/flaviodev/curriculum-view-ajs",
+	"authors" : [{
+			"name" : "Flávio de Souza",
+			"email" : "fdsdev@gmail.com"
+		}
+	],
+	"require" : {
+    	"flaviodev/ttm-view-ajs": "master"
+	},
+	"require-dev": {
+	}
 }
