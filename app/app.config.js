@@ -1,5 +1,6 @@
+angular.module('app', ['ngRoute','ngTable']);
+
 var $=jQuery;
 var controlLayerService = '/curriculum-control-php';
 
-angular.module('app', ['ngRoute','ngTable']);
 
