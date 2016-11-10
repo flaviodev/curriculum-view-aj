@@ -2,19 +2,19 @@
 angular.module('app').config(function($routeProvider, $locationProvider) {
    $routeProvider
       .when('/', { 
-         templateUrl:'app/modules/register/views/profile.html',
+         templateUrl:'app/modules/register/profile/profile.view.html',
          controller:'navigationController'})
       
-      .when('/profile', {
-	     templateUrl:'app/modules/register/views/profile.html',
+      .when('/Profile', {
+	     templateUrl:'app/modules/register/profile/profile.view.html',
 	     controller:'navigationController'})
       
-	  .when('/instituteOfEducation', {
-	     templateUrl:'app/modules/register/views/instituteOfEducation.html',
+	  .when('/InstituteOfEducation', {
+	     templateUrl:'app/modules/register/instituteOfEducation/instituteOfEducation.view.html',
 	     controller:'navigationController'})
 	     
 	  .when('/Employer', {
-	     templateUrl:'app/modules/register/views/employer.html',
+	     templateUrl:'app/modules/register/employer/employer.view.html',
 	     controller:'navigationController'})
 
 	  .otherwise ({redirectTo: '/'}); 

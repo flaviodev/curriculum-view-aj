@@ -1,19 +1,25 @@
 <!doctype html>
-<html ng-app="app"  lang="en-US" >
+<html ng-app="app" ng-locale="pt-br">
 	<head>
 		<meta charset="utf-8">
 		<title>TTM -Curriculum</title>
-		<link rel="stylesheet" href="vendor/flaviodev/ttm-view-ajs/vendor/twitter/bootstrap/dist/css/bootstrap.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
-		<link rel="stylesheet" href="vendor/flaviodev/ttm-view-ajs/public/css/ng-table-min.css">
 		<link rel="stylesheet" href="public/css/styles.css">
+		<link rel="stylesheet" href="vendor/flaviodev/ttm-view-ajs/vendor/twitter/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="vendor/flaviodev/ttm-view-ajs/public/css/angular-material.min.css">
+		<link rel="stylesheet" href="vendor/flaviodev/ttm-view-ajs/public/css/ng-table-min.css">
 		<link rel="stylesheet" href="vendor/flaviodev/ttm-view-ajs/public/css/ttm-styles.css">
 	</head>
 	
-	<script src="public/lib/angular/angular-min.js"></script>
-	<script src="public/lib/angular/ngtable-min.js"></script>
-	<script src="public/lib/angular/angular-route-min.js"></script>
-	<script src="public/lib/jquery/jquery-min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/angular.min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/ngtable.min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/angular-route.min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/angular-aria.min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/angular-animate.min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/angular-messages.min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/angular-material.min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/angular-gettext.min.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/angular/tmhDynamicLocale.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/public/lib/jquery/jquery-min.js"></script>
 	
 	<script src="vendor/flaviodev/ttm-view-ajs/app.config.js"></script>
 	<script src="app/app.routes.js"></script>
@@ -21,22 +27,44 @@
 	<script src="vendor/flaviodev/ttm-view-ajs/app/components/api.controller.js"></script>
 	<script src="vendor/flaviodev/ttm-view-ajs/app/components/api.directive.js"></script>
 	<script src="vendor/flaviodev/ttm-view-ajs/app/components/api.filter.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/app/components/api.translations.js"></script>
 	
 	<script src="vendor/flaviodev/ttm-view-ajs/app/modules/register/register.controller.js"></script>
 	<script src="vendor/flaviodev/ttm-view-ajs/app/modules/register/register.service.js"></script>
 	<script src="vendor/flaviodev/ttm-view-ajs/app/modules/register/register.directive.js"></script>
+	<script src="app/modules/home/home.controller.js"></script>
+	<script src="app/modules/register/profile/profile.controller.js"></script>
+	<script src="app/modules/register/instituteOfEducation/instituteOfEducation.controller.js"></script>
+	<script src="app/modules/register/employer/employer.controller.js"></script>
 
-	<script src="vendor/flaviodev/ttm-view-ajs/app/locales/angular-locale_pt-br.js"></script>
-	<script src="vendor/flaviodev/ttm-view-ajs/app/locales/angular-locale_en-us.js"></script>
+
+	<!-- <script src="vendor/flaviodev/ttm-view-ajs/app/locales/angular-locale_pt-br.js"></script>
+	<script src="vendor/flaviodev/ttm-view-ajs/app/locales/angular-locale_en-us.js"></script> -->
 	
-	<body>
+	<body ng-controller="homeController">
+		<md-toolbar class="md-hue-2">
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Options" >
+					<md-icon md-svg-icon="vendor/flaviodev/ttm-view-ajs/public/img/icons/apps.svg"></md-icon>
+				</md-button>
+				<h2><span>TTM - Curriculum</span></h2>
+				<span flex></span>
+				<md-button class="md-icon-button" aria-label="Language">
+					<md-icon md-svg-icon="vendor/flaviodev/ttm-view-ajs/public/img/icons/language.svg"></md-icon>
+				</md-button>
+				<select class="styled-select semi-square" ng-model="locales.current" ng-options="key as value for (key, value) in locales.available"></select>
+			</div>
+		</md-toolbar>	
+		<br/><h3 translate>Registers</h3>
+				
 		<ul class="nav nav-tabs">
 			<!--  <li ng-class="{active: activetab == '/'}"><a href="#/home">Home</a></li> -->
-			<li ng-class="{active: activetab == '/profile'}"><a href="#/profile">Profile</a></li>
-			<li ng-class="{active: activetab == '/instituteOfEducation'}"><a href="#/instituteOfEducation">Institute of Education</a></li>
-			<li ng-class="{active: activetab == '/Employer'}"><a href="#/Employer">Employer</a></li>
+			<li ng-class="{active: activetab == '/Profile'}"><a href="#/Profile">{{"Profile" | translate}}</a></li>
+			<li ng-class="{active: activetab == '/InstituteOfEducation'}"><a href="#/InstituteOfEducation">{{"Institute of Education" | translate}}</a></li>
+			<li ng-class="{active: activetab == '/Employer'}"><a href="#/Employer">{{"Employer" | translate}}</a></li>
 		</ul>
 		<div ng-view></div>
+
 	</body>
 </html>
 
