@@ -12,5 +12,6 @@
 		$scope.crud.setResourceName("Employer");
 		$scope.crud.setSortBy("name:asc");
 		$scope.crud.getAllObjects();
+		
 	}
 })();
