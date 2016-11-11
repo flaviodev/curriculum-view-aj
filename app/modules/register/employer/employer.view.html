@@ -5,7 +5,7 @@
 	  all crud templates references this alias, so always use rc 
 -->
 
-<div ng-controller="registerController as reg">
+<div ng-controller="ttmCrudController as crud">
     <div ng-controller="employerController as emp"> 
     
 	    <!-- directive with template for viewing the messages -->
@@ -18,15 +18,15 @@
 			<ttm-crud-title></ttm-crud-title>
 				
 			<!-- register edition form -->
-			<form id='edtition-form' name='editForm' ng-show="reg.edition_state" novalidate 
-			      ng-submit="reg.creating_mode ? reg.createObject(register) : reg.updateObject(register)">
+			<form id='edtition-form' name='editForm' ng-show="crud.edition_state" novalidate 
+			      ng-submit="crud.creating_mode ? crud.createObject(register) : crud.updateObject(register)">
 				
 				<!-- Edition fields form -->
 				{{'Name' | translate}}: 
 				<ttm-crud-field-error ng-show="editForm.name.$error.required">* {{'Name' | translate}} {{'is required' | translate}}</ttm-crud-field-error>
 				<ttm-crud-field-error ng-show="editForm.name.$error.minlength">* {{'Name' | translate}} {{'must be at least' | translate}} 4 {{'characters' | translate}}</ttm-crud-field-error>
 				<ttm-crud-field-error ng-show="editForm.name.$error.maxlength">* {{'Name' | translate}} {{'can be a maximum of' | translate}} 100 {{'characters' | translate}}</ttm-crud-field-error>
-				<input type="text" name='name' ng-minlength='4' ng-maxlength='100' class="form-control" show-focus="reg.edition_state"  ng-model="register.name" required >
+				<input type="text" name='name' ng-minlength='4' ng-maxlength='100' class="form-control" show-focus="crud.edition_state"  ng-model="register.name" required >
 				
 				<!-- directive with template of the register edition buttons  -->
 				<ttm-crud-form-edition-buttons></ttm-crud-form-edition-buttons>
@@ -40,7 +40,7 @@
 			<ttm-crud-form-new-button>+ {{'New' | translate}} {{'Employer' | translate}}</ttm-crud-form-new-button>
 	
 			<!-- ngTable with pagining, sorting and filtering -->
-			<table id="registers-table" cellspacing="0" class="table table-striped" ng-table="reg.tableParams">
+			<table id="registers-table" cellspacing="0" class="table table-striped" ng-table="crud.tableParams">
 				<tr ng-repeat="register in $data">
 					<!-- register fields table form -->
 					<td title="'id'" style="width:3%">{{register.id }}</td>

@@ -7,10 +7,10 @@
 	function employerController ($scope) {
 		var self = this;
 		
-		$scope.reg.setServicePath(controlLayerService);
-		$scope.reg.setResource("Employer");
-		$scope.reg.setResourceName("Employer");
-		$scope.reg.setSortBy("name:asc");
-		$scope.reg.getAllObjects();
+		$scope.crud.setServicePath(controlLayerService);
+		$scope.crud.setResource("Employer");
+		$scope.crud.setResourceName("Employer");
+		$scope.crud.setSortBy("name:asc");
+		$scope.crud.getAllObjects();
 	}
 })();
