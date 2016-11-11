@@ -1,0 +1,68 @@
+<!-- @autor flaviodev - Flávio de Souza - fdsdev@gmail.com
+     profile.html - window for registering of the profiles -->
+
+<!--  this view uses the controller: registerController with alias rc 
+	  all crud templates references this alias, so always use rc 
+-->
+
+<div ng-controller="ttmCrudController as crud"> 
+    <div ng-controller="profileController as pro">
+	    <!-- directive with template for viewing the messages  -->
+	    <ttm-crud-messages></ttm-crud-messages>
+	
+		<!-- area of the edition form  -->
+		<div id='edition-area' class="container">
+			
+			<!-- directive with template of the register title  -->
+			<ttm-crud-title></ttm-crud-title>
+		
+			<!-- register edition form -->
+			<form id='edtition-form' name='editForm' ng-show="crud.edition_state" novalidate 
+			      ng-submit="crud.creating_mode ? crud.createObject(register) : crud.updateObject(register)">
+				
+				<!-- Edition fields form -->
+				{{'Name' | translate}}: 
+				<ttm-crud-field-error ng-show="editForm.name.$error.required">* {{'Name' | translate}} {{'is required' | translate}}</ttm-crud-field-error>
+				<ttm-crud-field-error ng-show="editForm.name.$error.minlength">* {{'Name' | translate}} {{'must be at least' | translate}} 4 {{'characters' | translate}}</ttm-crud-field-error> 
+				<ttm-crud-field-error ng-show="editForm.name.$error.maxlength">* {{'Name' | translate}} {{'can be a maximum of' | translate}} 100 {{'characters' | translate}}</ttm-crud-field-error>
+				<input type="text" name='name' ng-minlength='4' ng-maxlength='100' class="form-control" show-focus="crud.edition_state"  ng-model="register.name" required >
+				
+				{{'Date of Birth' | translate}}: 
+				<ttm-crud-field-error ng-show="editForm.dateOfBirth.$error.required">* {{'Date of Birth' | translate}} {{'is required' | translate}}</ttm-crud-field-error>
+				<input type="date" name='dateOfBirth' placeholder="{{'YYYY-MM-DD'|translate}}" class="form-control" ng-model="register.dateOfBirth" required>
+				
+				{{'Document' | translate}}: 
+				<ttm-crud-field-error ng-show="editForm.document.$error.required">* {{'Document' | translate}} {{'is required' | translate}}</ttm-crud-field-error>
+				<ttm-crud-field-error ng-show="editForm.document.$error.pattern">* {{'Document' | translate}} {{'must have only numeric characters' | translate}} </ttm-crud-field-error>
+				<input type="text" name='document' ng-pattern="/^[0-9]+$/" class="form-control" ng-model="register.document" required>
+				
+				<!-- directive with template of the register edition buttons  -->
+				<ttm-crud-form-edition-buttons></ttm-crud-form-edition-buttons>
+			</form>
+		</div>
+	
+		<!-- registers table -->
+		<div id='table-area' class='container'>
+		
+			<!-- directive with template of the new register button  -->
+			<ttm-crud-form-new-button>+ {{'New' | translate}} {{'Profile' | translate}} </ttm-crud-form-new-button>
+	
+			<!-- ngTable with pagining, sorting and filtering -->
+			<table id="registers-table" cellspacing="0" class="table table-striped" ng-table="crud.tableParams">
+				<tr ng-repeat="register in $data">
+					<!-- register fields table form -->
+					<td title="'id'" style="width:3%">{{register.id }}</td>
+					<td title="'Name' | translate" sortable="'name'"  filter="{name: 'text'}" >{{register.name | captalize }}</td>
+					<td title="'Document' | translate" sortable="'document'"  filter="{document: 'text'}" style="width:25%" >{{register.document }}</td>
+					<td title="'Date of Birth' | translate:'short'" sortable="'dateOfBirth'" style="width:15%">{{register.dateOfBirth.date | date }}</td>
+					
+					<!-- directive with template of the register load button  -->
+					<td style="width:3%"><ttm-crud-table-load-button></ttm-crud-table-load-button></td>
+					
+					<!-- directive with template of the register delete button  -->
+					<td style="width:3%"><ttm-crud-table-delete-button></ttm-crud-table-delete-button></td>
+				</tr>
+			</table> 
+		</div>
+	</div>
+</div>
