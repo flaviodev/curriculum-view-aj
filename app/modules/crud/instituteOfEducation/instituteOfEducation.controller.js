@@ -7,11 +7,11 @@
 	function instituteOfEducationController ($scope) {
 		var self = this;
 		
-		$scope.reg.setServicePath(controlLayerService);
-		$scope.reg.setResource("InstituteOfEducation");
-		$scope.reg.setResourceName("Institute of Education");
-		$scope.reg.setSortBy("name:asc");
+		$scope.crud.setServicePath(controlLayerService);
+		$scope.crud.setResource("InstituteOfEducation");
+		$scope.crud.setResourceName("Institute of Education");
+		$scope.crud.setSortBy("name:asc");
 		
-		$scope.reg.getAllObjects();
+		$scope.crud.getAllObjects();
 	}
 })();

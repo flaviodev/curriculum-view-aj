@@ -7,11 +7,11 @@
 	function profileController ($scope) {
 		var self = this;
 		
-		$scope.reg.setServicePath(controlLayerService);
-		$scope.reg.setResource("Profile");
-		$scope.reg.setResourceName("Profile");
-		$scope.reg.setSortBy("name:asc");
+		$scope.crud.setServicePath(controlLayerService);
+		$scope.crud.setResource("Profile");
+		$scope.crud.setResourceName("Profile");
+		$scope.crud.setSortBy("name:asc");
 		
-		$scope.reg.getAllObjects();
+		$scope.crud.getAllObjects();
 	}
 })();
