@@ -4,8 +4,8 @@ body {
 
 .styled-select {
    background: transparent;
-   height: 25px;
-   font-size: 12px;
+   height: 35px;
+   font-size: 14px;
    overflow: hidden;
    width: 150px;
 }

@@ -23,7 +23,7 @@
 				<!-- Edition fields form -->
 				{{'Name' | translate}}: 
 				<ttm-crud-field-error ng-show="editForm.name.$error.required">* {{'Name' | translate}} {{'is required' | translate}}</ttm-crud-field-error>
-				<ttm-crud-field-error ng-show="editForm.name.$error.minlength">* {{'Name' | translate}} {{'must be at least' | translate}} 4 {{'characters' | translate}}</ttm-crud-field-error>
+				<ttm-crud-field-error ng-show="editForm.name.$error.minlength">* {{'Name' | translate}} {{'must be at least' | translate}} 4 {{'characters' | translate}}</ttm-crud-field-error> 
 				<ttm-crud-field-error ng-show="editForm.name.$error.maxlength">* {{'Name' | translate}} {{'can be a maximum of' | translate}} 100 {{'characters' | translate}}</ttm-crud-field-error>
 				<input type="text" name='name' ng-minlength='4' ng-maxlength='100' class="form-control" show-focus="reg.edition_state"  ng-model="register.name" required >
 				
