@@ -45,7 +45,7 @@
 				<tr ng-repeat="register in $data">
 					<!-- register fields table form -->
 					<td title="'id'" style="width:3%">{{register.id }}</td>
-					<td title="'Name' | translate" sortable="'name'"  filter="{name: 'text'}" >{{register.name | captalize }}</td>
+					<td title="'Name' | translate" sortable="'name'"  filter="{name: 'text'}" >{{register.name}}</td>
 					
 					<!-- directive with template of the register load button  -->
 					<td style="width:3%"><ttm-crud-table-load-button></ttm-crud-table-load-button></td>

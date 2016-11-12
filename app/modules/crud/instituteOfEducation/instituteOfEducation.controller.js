@@ -12,6 +12,14 @@
 		$scope.crud.setResourceName("Institute of Education");
 		$scope.crud.setSortBy("name:asc");
 		
-		$scope.crud.getAllObjects();
+		
+	    $scope.$parent.$parent.$watch('locales.current', function (locale) {
+	        if (!locale) {
+	            return;
+	        }
+
+	        $scope.crud.getAllObjects(locale);	        
+	    });
+		
 	}
 })();

@@ -14,11 +14,7 @@
 	    // Locale switcher
 	    $scope.locales = {
 	        current: tmhDynamicLocale.get(),
-	        available: {
-		        'en-us': 'English',
-		        'pt-br': 'Português (Brasil)',
-		        'es-es': 'Español'	
-			}
+	        available: availableLanguages
 	    };
 
 	    $scope.$watch('locales.current', function (locale) {
