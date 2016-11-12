@@ -19,7 +19,7 @@
 				
 			<!-- register edition form -->
 			<form id='edtition-form' name='editForm' ng-show="crud.edition_state" novalidate 
-			      ng-submit="crud.creating_mode ? crud.createObject(register) : crud.updateObject(register)">
+			      ng-submit="crud.creating_mode ? crud.createObject(register,ioe.currentLocale) : crud.updateObject(register)">
 				
 				<!-- Edition fields form -->
 				{{'Name' | translate}}: 
@@ -45,7 +45,7 @@
 				<tr ng-repeat="register in $data">
 					<!-- register fields table form -->
 					<td title="'id'" style="width:3%">{{register.id }}</td>
-					<td title="'Name' | translate" sortable="'name'"  filter="{name: 'text'}" >{{register.name}}</td>
+					<td title="'Name' | translate" sortable="'name'"  filter="{name: 'text'}" >{{register.name}} <span style="color:green;font-size:12px">{{ioe.getLocaleComplement(register.locale)}}</span></td>
 					
 					<!-- directive with template of the register load button  -->
 					<td style="width:3%"><ttm-crud-table-load-button></ttm-crud-table-load-button></td>

@@ -20,7 +20,7 @@ angular.module("gettext").run(['gettextCatalog', function (gettextCatalog) {
         "Institute" : "Instituición",
         "Employer" : "Empleador",
         
-        "Name" : "Apellido/Nombre",
+        "Name" : "Nombre",
         "Document" : "Documento",
         "Date of Birth" : {"short":"Fecha Nasc",'$$noContext':"Fecha de Nascimeinto"},
     });
